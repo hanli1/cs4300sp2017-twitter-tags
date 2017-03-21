@@ -1,1 +1,5 @@
 config.py
+*.pyc
+venv/
+mysite/*.pyc
+project_template/*.pyc
