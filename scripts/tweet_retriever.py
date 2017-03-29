@@ -26,8 +26,8 @@ auth.set_access_token(access_token, access_secret)
  
 api = tweepy.API(auth)
 
-tweets_by_user = {}
 def get_user_tweets(username, id):
+  tweets_by_user = {}
   name = ""
   tweets = []
   
@@ -53,10 +53,11 @@ def get_user_tweets(username, id):
       print "Over Capacity Error: Trying again" 
       time.sleep(60)
 
-  print "---- %s tweets downloaded from %s ----" % (len(tweets), name)
+  print "---- %s tweets downloaded from %s ID = %s ----" % (len(tweets), name, id)
 
   tweets_by_user[name] = [[unicode(tweet.id_str).encode("utf-8"), unicode(name).encode("utf-8"), 
-                      unicode(tweet.text)c.encode("utf-8")] for i, tweet in enumerate(tweets)]
+                      unicode(tweet.text).encode("utf-8")] for i, tweet in enumerate(tweets)]
+  return tweets_by_user
 
 def get_handles():
   people = []
@@ -66,7 +67,7 @@ def get_handles():
   reader.close()
   return people
 
-def write_to_csv():
+def write_to_csv(tweets_by_user):
   if os.path.isfile('user_tweets.csv'):
     with open('user_tweets.csv', 'a') as f:
       writer = csv.writer(f)
@@ -95,14 +96,15 @@ if __name__ == "__main__":
 
   #Depends on the section #, retrieve tweets from subset of users
   for i in range(start, end):
-    get_user_tweets(people[i], i + 1)
+    tweets_by_user = get_user_tweets(people[i], i + 1)
+    write_to_csv(tweets_by_user)
     #Wait for a minute before getting more tweets
     if i > 1 and i%WAIT_NUM == 0:
-      print("\n---- Retrieved " + str(i + 1) + " waiting for 30 seconds to continue ----\n")
+      print("\n---- Retrieved from " + str(i + 1) + " people, waiting for 30 seconds before continuing ----\n")
       time.sleep(30)
 
   #Create and write to CSV file
-  write_to_csv()
+  # write_to_csv()
 
   print("--- %s seconds ---" % (time.time() - start_time))
 
