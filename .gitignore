@@ -3,3 +3,4 @@ config.py
 venv/
 mysite/*.pyc
 project_template/*.pyc
+scripts/user_tweets.csv

@@ -55,7 +55,8 @@ def get_user_tweets(username, id):
 
 	print "---- %s tweets downloaded from %s ----" % (len(tweets), name)
 
-	tweets_by_user[name] = [[tweet.id_str, name, tweet.text.encode("utf-8")] for i, tweet in enumerate(tweets)]
+	tweets_by_user[name] = [[unicode(tweet.id_str).encode("utf-8"), unicode(name).encode("utf-8"), 
+											unicode(tweet.text).encode("utf-8")] for i, tweet in enumerate(tweets)]
 
 def get_handles():
 	people = []
