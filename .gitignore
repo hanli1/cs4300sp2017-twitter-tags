@@ -4,6 +4,6 @@ venv/
 mysite/*.pyc
 project_template/*.pyc
 scripts/user_tweets.csv
-
 scripts/processed_tweets.csv
-
+scripts/*.csv
+*.DS_Store
