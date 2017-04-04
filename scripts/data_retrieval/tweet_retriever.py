@@ -10,7 +10,7 @@ import sys
 WAIT_NUM = 20
 
 config = ConfigParser.ConfigParser()
-config.read("../config.py")
+config.read("../../config.py")
 consumer_key = config.get("keys", "consumer_key")
 consumer_secret = config.get("keys", "consumer_secret")
 access_token = config.get("keys", "access_token")
