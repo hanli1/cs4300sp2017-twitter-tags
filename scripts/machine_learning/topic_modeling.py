@@ -7,6 +7,8 @@ import csv
 import logging
 import sys
 
+processed_directory = "../../data/processed_tweets"
+
 class BasicLDA:
     """
     Implements training and loading of the basic LDA model given tokenized documents
