@@ -5,29 +5,56 @@ import gensim
 import os
 import csv
 import logging
+import sys
 
 processed_directory = "../../data/processed_tweets"
 
-def run_basic_lda(all_tokenized_documents, all_processed_users):
+class BasicLDA:
     """
-    Given a list of tokenized documents, performs LDA on these documents
+    Implements training and loading of the basic LDA model given tokenized documents
+    and a list of the users
     """
-    docs_to_consider = all_tokenized_documents[:100]
-    dictionary = gensim.corpora.Dictionary(docs_to_consider)
-    print(len(dictionary.keys()))
-    print(len(dictionary.values()))
-    bag_of_words_documents = [dictionary.doc2bow(doc) for doc in docs_to_consider]
-    #Mapping from a user to the bag of words of their tweets
-    bag_of_words_dict  = {}
-    for i in range(len(bag_of_words_documents)):
-        bag_of_words_dict[all_processed_users[i]] = bag_of_words_documents[i]
-    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-    lda_model = gensim.models.ldamodel.LdaModel(bag_of_words_documents, num_topics=20, \
-        id2word = dictionary, passes=200)
-    print(lda_model.print_topics(num_topics=20, num_words=5))
-    print(lda_model[bag_of_words_dict["Ariana Grande"]])
-    print(lda_model[bag_of_words_dict["Donald J. Trump"]])
-    print(lda_model[bag_of_words_dict["Al Yankovic"]])
+    
+    def __init__(self, all_tokenized_documents, all_processed_users):
+        """
+        Performs initializations necessary for the LDA model; specifically, prepares
+        the bag of words for each document
+        """
+        docs_to_consider = all_tokenized_documents[:500]
+        self.dictionary = gensim.corpora.Dictionary(docs_to_consider)
+        self.dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n=100000)
+        self.bag_of_words_documents = [self.dictionary.doc2bow(doc) for doc in docs_to_consider]
+        #Mapping from a user to the bag of words of their tweets
+        self.bag_of_words_dict  = {}
+        for i in range(len(self.bag_of_words_documents)):
+            self.bag_of_words_dict[all_processed_users[i]] = self.bag_of_words_documents[i]
+        self.lda_model = None
+
+    def train_basic_lda(self):
+        """
+        Given a list of tokenized documents, performs LDA on these documents
+        """
+        #Enable logging in order to track the process of the LDA model
+        logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+        lda_model = gensim.models.ldamodel.LdaModel(self.bag_of_words_documents, num_topics=20, \
+            id2word = self.dictionary, passes=200)
+        lda_model.save('trained_basic_lda_model/lda.model')
+        topics_distribution = lda_model.show_topics(num_topics=2, num_words=20)
+        with open("trained_basic_lda_model/topics_distribution", 'wb') as f:
+            for topic_distribution in topics_distribution:
+                f.write(str(topic_distribution[0]) + " ")
+                topic_words = topic_distribution[1].split("+")
+                for topic_word in topic_words:
+                    f.write(topic_word.strip() + " ")
+                f.write("\n")
+
+    def load_basic_lda(self):
+        """
+        Loads a trained LDA model from disk
+        """
+        lda_model = gensim.models.ldamodel.LdaModel.load('trained_basic_lda_model/lda.model')
+        print(self.lda_model[bag_of_words_dict["Ariana Grande"]])
+        print(self.lda_model[bag_of_words_dict["Donald J. Trump"]])
 
 
 def build_tokenized_documents_list(file_name):
@@ -58,6 +85,10 @@ def build_tokenized_documents_list(file_name):
 
 
 if __name__ == "__main__":
+    try:
+        train_or_load = sys.argv[1]
+    except Exception as e:
+        train_or_load = "train"
     #Will contain all tokenized documents, where each document corresponds to all
     #the tweets of the user
     all_tokenized_documents = []
@@ -68,8 +99,11 @@ if __name__ == "__main__":
             processed_users, tokenized_documents = build_tokenized_documents_list(filename)
             all_tokenized_documents = all_tokenized_documents + tokenized_documents
             all_processed_users = all_processed_users + processed_users
-    run_basic_lda(all_tokenized_documents, all_processed_users)
-
+    basic_lda_model = BasicLDA(all_tokenized_documents, all_processed_users)
+    if train_or_load == "train":
+        basic_lda_model.train_basic_lda()
+    elif train_or_load == "load":
+        basic_lda_model.load_basic_lda()
 
 
 
