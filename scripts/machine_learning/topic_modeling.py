@@ -7,8 +7,6 @@ import csv
 import logging
 import sys
 
-processed_directory = "../../data/processed_tweets"
-
 class BasicLDA:
     """
     Implements training and loading of the basic LDA model given tokenized documents
@@ -30,14 +28,14 @@ class BasicLDA:
             self.bag_of_words_dict[all_processed_users[i]] = self.bag_of_words_documents[i]
         self.lda_model = None
 
-    def train_basic_lda(self):
+    def train_basic_lda(self, num_topics, num_passes):
         """
         Given a list of tokenized documents, performs LDA on these documents
         """
         #Enable logging in order to track the process of the LDA model
         logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-        lda_model = gensim.models.ldamodel.LdaModel(self.bag_of_words_documents, num_topics=20, \
-            id2word = self.dictionary, passes=200)
+        lda_model = gensim.models.ldamodel.LdaModel(self.bag_of_words_documents, \
+            num_topics=num_topics, id2word = self.dictionary, passes=num_passes)
         lda_model.save('trained_basic_lda_model/lda.model')
         topics_distribution = lda_model.show_topics(num_topics=2, num_words=20)
         with open("trained_basic_lda_model/topics_distribution", 'wb') as f:
@@ -101,7 +99,17 @@ if __name__ == "__main__":
             all_processed_users = all_processed_users + processed_users
     basic_lda_model = BasicLDA(all_tokenized_documents, all_processed_users)
     if train_or_load == "train":
-        basic_lda_model.train_basic_lda()
+        try:
+            #Number of topics to train from in the LDA model
+            num_topics = int(sys.argv[2])
+        except Exception as e:
+            num_topics = 20
+        try:
+            #Number of iterations/passes to run for in the LDA model
+            num_passes = int (sys.argv[3])
+        except Exception as e:
+            num_passes = 200
+        basic_lda_model.train_basic_lda(num_topics, num_passes)
     elif train_or_load == "load":
         basic_lda_model.load_basic_lda()
 
