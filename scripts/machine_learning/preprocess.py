@@ -17,8 +17,8 @@ emoji_pattern = re.compile(
     u"(\ud83d[\ude80-\udeff])|"  # transport & map symbols
     u"(\ud83c[\udde0-\uddff])"  # flags (iOS)
     "+", flags=re.UNICODE)
-raw_directory = "../data/raw_tweets"
-processed_directory = "../data/processed_tweets"
+raw_directory = "../../data/raw_tweets"
+processed_directory = "../../data/processed_tweets"
 stop_word_list = stop_words.get_stop_words('en')
 p_stemmer = PorterStemmer()
 
