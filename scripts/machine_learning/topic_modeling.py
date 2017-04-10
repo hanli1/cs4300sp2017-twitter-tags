@@ -114,6 +114,3 @@ if __name__ == "__main__":
         basic_lda_model.train_basic_lda(num_topics, num_passes)
     elif train_or_load == "load":
         basic_lda_model.load_basic_lda()
-
-
-

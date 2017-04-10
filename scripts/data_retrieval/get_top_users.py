@@ -31,6 +31,5 @@ for n in names:
   # handle = n[n.find('@'):]
   # writer.write(handle)
   writer.write(n + "\n");
-writer.clos
+writer.close()
 print("--- %s seconds ---" % (time.time() - start_time))
-

@@ -4,6 +4,7 @@ dj-database-url==0.4.0
 Django==1.9.2
 gensim==1.0.1
 gunicorn==19.4.5
+langdetect==1.0.7
 nltk==3.2.2
 numpy==1.12.1
 oauthlib==2.0.2
