@@ -41,7 +41,7 @@
 .btn{
   height: 34px;
   width: 80px;
-  margin-left: -4px; 
+  margin-left: -3px; 
   background-color: #1dcaff;
   color: white;
   transition: all 0.3s ease 0s;
@@ -79,6 +79,12 @@
 #tag-selection-input{
 
 }
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 5px 10px; white-space: nowrap; overflow: hidden;}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 /* gets rid of bootstrap's rounded border on every element */
 * {
   border-radius: 0 !important;
@@ -99,3 +105,4 @@ input:focus::-webkit-input-placeholder {
   from { background-position: 0 0; }
   to { background-position: 200% 0; }
 }
+
