@@ -1,0 +1,9 @@
+Liberal: compassion, choice, morals, racism, inequality, peace, abortion, progressive, universal, internationalwomensday, feminism
+Conservative: religion, traditional, guns, statesrights, prolife, secondamendment, presidenttrump, liberty, bluelivesmatter, alllivesmatter, prolifemarch,
+Sports Fan: basketball, soccer, tennis, warriors, volleyball, football, tennis, panthers, sports
+Fashion Lover: louisvuitton, burberry, dior, paris, coat, jacket, trenchcoat, sweater, pants, jeans, shirt, style
+Food Lover: food, gourmet, bbq, restaurant, barbeque, chef, eats, dish, creaminess, waiter, snack, napkin, flavor, delicious
+Music Lover: song, music, arrangement, beats, rocking, popmusic, rap, singer, jazz, records, album, artist, musical, musician, electronic, jamming, recording, symphony, band
+Gamer: game, gamer, play, dota, cod, gamer, gaming, callofduty, videogames, indiedev, ps4, vr
+Religious: religion, christian, islam, buddhism, church, devout, pious, catholic, holy, jesus, sacrifice, god, christ, lord, mercy, rebirth, prayer
+Festive: christmas, birthday, holiday, eggnog, halloween, carol, celebrate, celetration, ceremony, merry, merrychristmas, spirit
