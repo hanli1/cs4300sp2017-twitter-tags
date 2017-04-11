@@ -17,7 +17,7 @@
   background-image: url("clouds.jpg");
   background-position: 0px 0px;
   background-repeat: repeat-x;
-  animation: animatedBackground 10s linear infinite;
+  /*animation: animatedBackground 10s linear infinite;*/
 
   }
   .global-search {

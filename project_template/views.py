@@ -8,6 +8,7 @@ from .test import find_similar
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import simplejson as json
 from django.http import JsonResponse
+import os
 
 # Create your views here.
 def index(request):
@@ -29,20 +30,20 @@ def index(request):
               'magic_url': request.get_full_path(),
               })
 
+users = []
 def get_users_handles(request):
-  user_handles = [{
-        "value": "United Arab Emirates",
-        "data": "AE"
-    }, {
-        "value": "United Kingdom",
-        "data": "UK"
-    }, {
-        "value": "United States",
-        "data": "US"
-    }, {
-        "value": "United Funes",
-        "data": "DAN"
-    }]
+  global users
+
+  if len(users) == 0:
+    # first time, load from disk
+    print 
+    with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_handle.txt", "r+") as f1:
+      all_handles = f1.readlines()
+      with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
+        all_names = f2.readlines()
+        users = [{"value": i + " " + j} for i, j in zip(all_handles, all_names)]
+
   data = {}
-  data["suggestions"] = user_handles
+  data["suggestions"] = users
+  # data["suggestions"] = [{"value":"hello"}]
   return JsonResponse(data)

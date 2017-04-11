@@ -7,6 +7,8 @@ $.getJSON('/pt/ajax/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
     users = data["suggestions"];
     $('#user-selection-input').autocomplete({
       lookup: users,
+      lookupLimit: 5,
+      autoSelectFirst: true,
       onSelect: function (suggestion) {
           
       }
