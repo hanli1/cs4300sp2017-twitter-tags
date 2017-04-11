@@ -6,6 +6,7 @@ import os
 import csv
 import logging
 import sys
+import nltk
 
 processed_directory = "../../data/processed_tweets"
 
@@ -73,29 +74,50 @@ class SeedWordsLDA(LDASuperClass):
     def __init__(self, all_tokenized_documents, all_processed_users):
         LDASuperClass.__init__(self, all_tokenized_documents, all_processed_users)
 
-    def build_topic_word_distributions(self, seed_words_matrix):
+    def build_topic_word_distributions(self, seed_words_matrix, num_topics):
         """
         Helper method for building the topic word probability distribution for each topic
         based on the given seed words matrix parameter (seed words for each topic), and 
-        these distributions will be provided as a parameter to the LDA training
+        these distributions will be provided as a parameter to the LDA training; if the
+        number of topics given exceeds the number of seed word sets, the remaining topics
+        are set to a uniform probability distribution over the words
         """
+        p_stemmer = nltk.stem.porter.PorterStemmer()
         topic_word_distributions = []
         num_words = len(self.dictionary.keys())
+        word_to_id_dict = {}
+        for word_id in self.dictionary.keys():
+            word_to_id_dict[self.dictionary.get(word_id)] = word_id
+        #Set assymetric probability distribution for each topic corresponding to 
+        #its seed words set by setting higher probabilities for the seed words
         for i in range(len(seed_words_matrix)):
             topic_seed_words = seed_words_matrix[i]
             topic_word_distribution = [0] * num_words
             seed_words_prob_sum = 0.0
             seed_words_count = 0
-            for word_id in self.dictionary.keys():
-                if self.dictionary.get(word_id) in topic_seed_words:
-                    topic_word_distribution[word_id] = 3.0 / num_words
+            stemmed_seed_words = set()
+            print "Topic " + str(i) + " Seed Words Used: "
+            for seed_word in topic_seed_words:
+                stemmed_word = p_stemmer.stem(seed_word)
+                if (stemmed_word not in stemmed_seed_words) and \
+                stemmed_word in word_to_id_dict:
+                    current_word_id = word_to_id_dict[stemmed_word]
+                    topic_word_distribution[current_word_id] = 3.0 / num_words
                     seed_words_prob_sum = seed_words_prob_sum + (3.0 / num_words)
                     seed_words_count = seed_words_count + 1
+                    stemmed_seed_words.add(stemmed_word)
+                    print seed_word     
             regular_words_prob_sum = 1.0 - seed_words_prob_sum
             regular_words_count = num_words - seed_words_count
             for word_id in self.dictionary.keys():
                 if self.dictionary.get(word_id) not in topic_seed_words:
                     topic_word_distribution[word_id] = regular_words_prob_sum / regular_words_count
+            topic_word_distributions.append(topic_word_distribution)
+        #Set uniform prpobability distribution over words for each remaining topic
+        for j in range(num_topics - len(seed_words_matrix)):
+            topic_word_distribution = [0] * num_words
+            for word_id in self.dictionary.keys():
+                topic_word_distribution[word_id] = 1.0 / num_words
             topic_word_distributions.append(topic_word_distribution)
         return topic_word_distributions
 
@@ -105,7 +127,7 @@ class SeedWordsLDA(LDASuperClass):
         given seed_words matrix, and then trains with the given number of topics and
         given number of passes
         """
-        topic_word_distributions = self.build_topic_word_distributions(seed_words_matrix)
+        topic_word_distributions = self.build_topic_word_distributions(seed_words_matrix, num_topics)
         #Enable logging in order to track the process of the LDA model
         logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
         self.lda_model = gensim.models.ldamodel.LdaModel(self.bag_of_words_documents, \
@@ -189,12 +211,12 @@ if __name__ == "__main__":
         if lda_model_type == "basic":
             basic_lda_model = BasicLDA(all_tokenized_documents, all_processed_users)
             basic_lda_model.train_basic_lda(num_topics, num_passes)
-        else if lda_model_type == "seed_words":
+        elif lda_model_type == "seed_words":
             seed_matrix = []
             with open("seed_words.txt", 'r') as f:
                 content = f.readlines()
                 for line in content:
-                    topic_seed_words = topic_seed_words[(line.index(":") + 1):].split(",")
+                    topic_seed_words = line[(line.index(":") + 1):].split(",")
                     topic_seed_words = [word.strip() for word in topic_seed_words]
                     seed_matrix.append(topic_seed_words)
             seed_words_lda_model = SeedWordsLDA(all_tokenized_documents, all_processed_users)
@@ -203,7 +225,7 @@ if __name__ == "__main__":
         if lda_model_type == "basic":
             basic_lda_model = BasicLDA(all_tokenized_documents, all_processed_users)
             basic_lda_model.load_basic_lda()
-        else:
+        elif lda_model_type == "seed_words":
             seed_words_lda_model = SeedWordsLDA(all_tokenized_documents, all_processed_users)
             seed_words_lda_model.load_seed_words_lda()
 
