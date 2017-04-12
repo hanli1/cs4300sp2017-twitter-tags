@@ -20,10 +20,13 @@
             
             <div class="form-group">
                 <input id="user-selection-input" type="text" name="search" class="form-control glowing-border" placeholder="Your Input">
+                <input id="tag-selection-input" type="text" class="form-control glowing-border" placeholder="Tags">
             </div>
-            <button type="submit" class="btn btn-info">Search</button>
+            <button class="btn btn-info">Search</button>
         </form>
         
+        <div id="tags-container">
+        </div>
         <div class="form-inline global-search">
             <h4>Output</h4><br>
             {% for line in output %}

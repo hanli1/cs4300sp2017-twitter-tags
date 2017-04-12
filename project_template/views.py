@@ -36,7 +36,6 @@ def get_users_handles(request):
 
   if len(users) == 0:
     # first time, load from disk
-    print 
     with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_handle.txt", "r+") as f1:
       all_handles = f1.readlines()
       with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
@@ -46,4 +45,21 @@ def get_users_handles(request):
   data = {}
   data["suggestions"] = users
   # data["suggestions"] = [{"value":"hello"}]
+  return JsonResponse(data)
+
+tags = []
+def get_tag_labels(request):
+  global tags
+
+  if len(tags) == 0:
+    # first time, load from disk
+    # with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_handle.txt", "r+") as f1:
+    #   all_handles = f1.readlines()
+    #   with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
+    #     all_names = f2.readlines()
+    #     users = [{"value": i + " " + j} for i, j in zip(all_handles, all_names)]
+    tags = [{"value": "food"}, {"value": "democrats"}]
+
+  data = {}
+  data["suggestions"] = tags
   return JsonResponse(data)
