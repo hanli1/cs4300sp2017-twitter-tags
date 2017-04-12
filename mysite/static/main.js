@@ -37,10 +37,11 @@ $.getJSON('/pt/ajax/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
       lookupLimit: 5,
       autoSelectFirst: true,
       onSelect: function (suggestion) {
-        value = suggestion.value;
-        span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
-        $("#tags-container").append("<div class=\"chip\">"
-            + value + span + "</div>");
+        var value = suggestion.value;
+        var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
+        var chip = $("<div class=\"chip\">"
+            + value + span + "</div>").hide();
+        chip.appendTo($("#tags-container")).fadeIn(200);
         $("#tag-selection-input").val("");
       }
     });

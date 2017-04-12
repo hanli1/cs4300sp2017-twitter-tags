@@ -114,7 +114,7 @@ input:focus::-webkit-input-placeholder {
   line-height: 30px;
   border-radius: 25px !important;
   background-color: white;
-  margin: 10px;
+  margin: 5px;
 }
 .closebtn {
   padding-left: 10px;
