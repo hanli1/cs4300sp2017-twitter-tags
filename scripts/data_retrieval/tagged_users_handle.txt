@@ -1,22 +1,37 @@
 Liberal:
 @SenSanders
 @TheDemocrats
+@JoeBiden
+@NancyPelosi
+@SenatorReid
 
 Conservative:
 @GOP
 @SpeakerRyan
+@HouseGOP
+@AppSame
+@SarahPalinUSA
 
 Sports Fan:
 @espn
 @YahooSports
+@TwitterSports
+@SInow ‏
+@FOXSports
 
 Fashion Lover:
 @TimesFashion
 @WhoWhatWear
+@voguemagazine
+@NYTFashion
+@FashionWeek
 
 Food Lover:
 @TwitterFood
 @bonappetit
+@nytfood
+@latimesfood
+@PBSFood
 
 Music Lover:
 @pitchfork
