@@ -1,0 +1,40 @@
+Liberal:
+@SenSanders
+@TheDemocrats
+
+Conservative:
+@GOP
+@SpeakerRyan
+
+Sports Fan:
+@espn
+@YahooSports
+
+Fashion Lover:
+@TimesFashion
+@WhoWhatWear
+
+Food Lover:
+@TwitterFood
+@bonappetit
+
+Music Lover:
+@pitchfork
+@TwitterMusic
+
+Gamer:
+@gameinformer
+@gamespot
+
+Religious:
+@CNNbelief
+@DalaiLama
+@Pontifex
+
+Art Lover:
+@SaatchiArt
+@artsy
+
+Science Lover:
+@NASA
+@sciencemagazine

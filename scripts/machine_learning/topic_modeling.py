@@ -61,8 +61,12 @@ class BasicLDA(LDASuperClass):
         Loads a trained LDA model from disk
         """
         self.lda_model = gensim.models.ldamodel.LdaModel.load('trained_basic_lda_model/lda.model')
-        print(self.lda_model[bag_of_words_dict["Ariana Grande"]])
-        print(self.lda_model[bag_of_words_dict["Donald J. Trump"]])
+        people_list = ["Ariana Grande", "Donald J. Trump", "Barack Obama", "Ellen DeGeneres",\
+        "Kim Kardashian West", "Oprah Winfrey", "ESPN", "Miley Ray Cyrus", "Neil Patrick Harris"]
+        for people in people_list:
+            print people
+            print (self.lda_model[bag_of_words_dict[people]])
+
 
 class SeedWordsLDA(LDASuperClass):
     """
@@ -101,12 +105,13 @@ class SeedWordsLDA(LDASuperClass):
                 stemmed_word = p_stemmer.stem(seed_word)
                 if (stemmed_word not in stemmed_seed_words) and \
                 stemmed_word in word_to_id_dict:
-                    current_word_id = word_to_id_dict[stemmed_word]
-                    topic_word_distribution[current_word_id] = 3.0 / num_words
-                    seed_words_prob_sum = seed_words_prob_sum + (3.0 / num_words)
                     seed_words_count = seed_words_count + 1
                     stemmed_seed_words.add(stemmed_word)
-                    print seed_word     
+                    print seed_word
+            for stemmed_seed_word in stemmed_seed_words:
+                current_word_id = word_to_id_dict[stemmed_seed_word]
+                topic_word_distribution[current_word_id] = 0.5 / seed_words_count
+                seed_words_prob_sum = seed_words_prob_sum + (0.5 / seed_words_count)     
             regular_words_prob_sum = 1.0 - seed_words_prob_sum
             regular_words_count = num_words - seed_words_count
             for word_id in self.dictionary.keys():
@@ -148,8 +153,12 @@ class SeedWordsLDA(LDASuperClass):
         Loads a trained LDA model from disk
         """
         self.lda_model = gensim.models.ldamodel.LdaModel.load('trained_seed_words_lda_model/lda.model')
-        print(self.lda_model[bag_of_words_dict["Ariana Grande"]])
-        print(self.lda_model[bag_of_words_dict["Donald J. Trump"]])
+        people_list = ["Ariana Grande", "Donald J. Trump", "Barack Obama", "Ellen DeGeneres",\
+        "Kim Kardashian West", "Oprah Winfrey", "ESPN", "Miley Ray Cyrus", "Neil Patrick Harris"]
+        for people in people_list:
+            print people
+            print (self.lda_model[self.bag_of_words_dict[people]])
+
 
 def build_tokenized_documents_list(file_name):
     """

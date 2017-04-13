@@ -23,8 +23,8 @@ access_secret = config.get("keys", "access_secret")
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
- 
 api = tweepy.API(auth)
+raw_directory = "../../data/raw_tweets"
 
 def get_user_tweets(username, id):
   tweets_by_user = {}
@@ -55,57 +55,95 @@ def get_user_tweets(username, id):
 
   print "---- %s tweets downloaded from %s ID = %s ----" % (len(tweets), name, id)
 
-  tweets_by_user[name] = [[unicode(tweet.id_str).encode("utf-8"), unicode(name).encode("utf-8"), 
-                      unicode(tweet.text).encode("utf-8")] for i, tweet in enumerate(tweets)]
+  tweets_by_user[name] = [[unicode(tweet.id_str).encode("utf-8"), unicode(name).encode("utf-8"), \
+    unicode(tweet.created_at).encode("utf-8"), unicode(str(tweet.favorite_count)).encode("utf-8"), \
+    unicode(tweet.text).encode("utf-8")] for i, tweet in enumerate(tweets)]
   return tweets_by_user
 
-def get_handles():
+def get_untagged_users_handles():
+  """
+  Returns a list of the handles of users who have not been tagged yet
+  """
   people = []
-  reader  = open('top_users_handle.txt', 'r')
-  for line in reader: 
-    people.append(line[1:])
-  reader.close()
+  with open('top_users_handle.txt', 'r') as f:
+    lines = f.readlines()
+    for line in lines: 
+      people.append(line[1:])
   return people
 
-def write_to_csv(tweets_by_user):
-  if os.path.isfile('user_tweets.csv'):
-    with open('user_tweets.csv', 'a') as f:
+def get_tagged_users_handles_dict():
+  """
+  Returns a dictionary mapping each tag to the users of that tag
+  """
+  tagged_users_dict = {}
+  with open('tagged_users_handle.txt', 'r') as f:
+    lines = f.readlines()
+    current_tag = ""
+    current_user_list = []
+    for line in lines:
+      colon_index = line.find(":") 
+      if colon_index >= 0:
+        if len(current_user_list) > 0:
+          tagged_users_dict[current_tag] = current_user_list
+        current_tag = line[:colon_index].lower()
+        current_user_list = []
+      elif len(line) > 0 and line != "\n" and line != "":
+        current_user_list.append(line[1:])
+    if len(current_user_list) > 0:
+      tagged_users_dict[current_tag] = current_user_list
+  return tagged_users_dict
+
+
+def write_to_csv(tweets_by_user, csv_file):
+  if os.path.isfile(os.path.join(raw_directory, csv_file)):
+    with open(os.path.join(raw_directory, csv_file), 'a') as f:
       writer = csv.writer(f)
       for name, tweets in tweets_by_user.items():
         writer.writerows(tweets)
   else:
-    with open('user_tweets.csv', 'wb') as f:
+    with open(os.path.join(raw_directory, csv_file), 'wb') as f:
       writer = csv.writer(f)
-      writer.writerow(["id","name","text"])
+      writer.writerow(["id","name","date","favorites","text"])
       for name, tweets in tweets_by_user.items():
         writer.writerows(tweets)
 
 if __name__ == "__main__":
   start_time = time.time()
 
-  #start and end argument
-  start = int(sys.argv[1])
-  end = int(sys.argv[2])
+  user_type = sys.argv[1]
 
-  #Get list of people
-  people = get_handles()
+  if user_type == "untagged_users":
+    #start and end argument
+    start = int(sys.argv[2])
+    end = int(sys.argv[3])
 
-  #Adjust start and end
-  start = max(0, start)
-  end = min(len(people), end)
+    #Get list of people
+    people = get_untagged_users_handles()
 
-  #Depends on the section #, retrieve tweets from subset of users
-  for i in range(start, end):
-    tweets_by_user = get_user_tweets(people[i], i + 1)
-    write_to_csv(tweets_by_user)
-    #Wait for a minute before getting more tweets
-    if i > 1 and i%WAIT_NUM == 0:
-      print("\n---- Retrieved from " + str(i + 1) + " people, waiting for 30 seconds before continuing ----\n")
-      time.sleep(30)
+    #Adjust start and end
+    start = max(0, start)
+    end = min(len(people), end)
 
-  #Create and write to CSV file
-  # write_to_csv()
-
+    #Depends on the section #, retrieve tweets from subset of users
+    for i in range(start, end):
+      tweets_by_user = get_user_tweets(people[i], i + 1)
+      write_to_csv(tweets_by_user, "user_tweets.csv")
+      #Wait for a minute before getting more tweets
+      if i > 1 and i%WAIT_NUM == 0:
+        print("\n---- Retrieved from " + str(i + 1) + " people, waiting for 30 seconds before continuing ----\n")
+        time.sleep(30)
+  elif user_type == "tagged_users":
+    tag_to_people_dict = get_tagged_users_handles_dict()
+    i = 0
+    for tag in tag_to_people_dict:
+      tag_people_list = tag_to_people_dict[tag]
+      for person in tag_people_list:
+        user_tweets = get_user_tweets(person, i + 1)
+        write_to_csv(user_tweets, tag.replace(" ", "_") + ".csv")
+        #Wait for a minute before getting more tweets
+        if i > 1 and i%WAIT_NUM == 0:
+          print("\n---- Retrieved from " + str(i + 1) + " people, waiting for 30 seconds before continuing ----\n")
+          time.sleep(30)
   print("--- %s seconds ---" % (time.time() - start_time))
 
 
