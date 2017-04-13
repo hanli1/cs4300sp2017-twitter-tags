@@ -1,7 +1,5 @@
 """
-Performs preprocessing of tweets of csv files in data/raw_tweets by removing
-links, emojis, punctuation, and stop words as well as performing stemming and 
-writing out the results to data/processed_tweets
+Performs preprocessing of tweets of csv files in data/raw_tweets 
 """
 import re
 import sys
@@ -10,6 +8,7 @@ import os
 import stop_words
 import nltk
 from langdetect import detect
+import argparse
 
 emoji_pattern = re.compile(
     u"(\ud83d[\ude00-\ude4f])|"  # emoticons
@@ -36,9 +35,11 @@ def tweet_is_english(content, tokens):
     return ((float(num_english_tokens) / len(tokens)) >= 0.6 or detect(content) == "en")
 
 
-def preprocess_file(file_name):
+def preprocess_file(file_name, stemming=True, english_check=True):
     """
-    Performs preprocessing for the tweets in a given file
+    One version of preprocessing that removes links, emojis, punctuation, and stop words, 
+    as well as potentially performing stemming and checking for english tweets depending
+    on the arguments of stemming, english_check
     """
     file_text = []
     with open(os.path.join(raw_directory, file_name), 'rb') as f:
@@ -47,42 +48,66 @@ def preprocess_file(file_name):
         current_user = ""
         current_user_english_tweets = 0
         current_user_total_tweets = 0
-        for a, b, line in reader:
+        for tweet_id, name, date, favorites, text in reader:
             try:
-                if current_user != b:
+                if current_user != name:
                     if current_user != "":
-                        english_tweet_ratio = float(current_user_english_tweets) / \
-                        current_user_total_tweets
-                        if len(current_user_tweets) > 500 and english_tweet_ratio > 0.6:
+                        if english_check:
+                            english_tweet_ratio = float(current_user_english_tweets) / \
+                            current_user_total_tweets
+                            if len(current_user_tweets) > 500 and english_tweet_ratio > 0.6:
+                                file_text = file_text + current_user_tweets
+                            print current_user + ", " + str(current_user_english_tweets) + \
+                            " english, " + str(current_user_total_tweets) + " total tweets"
+                        else:
+                            print current_user + ", " + str(current_user_total_tweets) + \
+                            " total tweets"
                             file_text = file_text + current_user_tweets
-                        print current_user + ", " + str(current_user_english_tweets) + \
-                        " english, " + str(current_user_total_tweets) + " total"
-                    current_user = b
+                    current_user = name
                     current_user_tweets = []
                     current_user_english_tweets = 0
                     current_user_total_tweets = 0
                 current_user_total_tweets = current_user_total_tweets + 1
                 # remove links
-                content =  re.sub(r'http\S+', '', line, flags=re.MULTILINE)
+                content =  re.sub(r'http\S+', '', text, flags=re.MULTILINE)
                 content = content.decode('utf-8')
                 # remove emojis
                 content = re.sub(emoji_pattern, "", content)
                 content = content.lower()
-                tokens = re.findall(r"[\w']+|[.,!?;]", content)
+                initial_tokens = re.findall(r"[\w']+|[.,!?;]", content)
                 #remove punctuation
-                tokens = [token for token in tokens if not token in ".,!?;\"'"]
-                #Check if tweet is english
-                if tweet_is_english(content, tokens):
-                    current_user_english_tweets = current_user_english_tweets + 1
-                    # remove stop words
-                    tokens = [token for token in tokens if not token in stop_word_list]
+                initial_tokens = [token for token in initial_tokens if not token in ".,!?;\"'"]
+                # remove stop words
+                tokens = [token for token in initial_tokens if not token in stop_word_list]
+                if stemming:
                     # perform stemming
                     tokens = [p_stemmer.stem(token) for token in tokens]
+                #Check if tweet is english
+                if english_check:
+                    if tweet_is_english(content, tokens):
+                        current_user_english_tweets = current_user_english_tweets + 1
+                        processed_tweet = " ".join(tokens)
+                        if len(processed_tweet) > 1:
+                            current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])
+                else:
                     processed_tweet = " ".join(tokens)
                     if len(processed_tweet) > 1:
-                        current_user_tweets.append([a, b, processed_tweet])
+                        current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])   
+
             except Exception as e:
                 continue
+    if current_user != "":
+        if english_check:
+            english_tweet_ratio = float(current_user_english_tweets) / \
+            current_user_total_tweets
+            if len(current_user_tweets) > 500 and english_tweet_ratio > 0.6:
+                file_text = file_text + current_user_tweets
+            print current_user + ", " + str(current_user_english_tweets) + \
+            " english, " + str(current_user_total_tweets) + " total tweets"
+        else:
+            print current_user + ", " + str(current_user_total_tweets) + \
+            " total tweets"
+            file_text = file_text + current_user_tweets
     file_end_index = file_name.find(".csv")
     processed_file_name = file_name[:file_end_index] + "_processed.csv"
     processed_file = open(os.path.join(processed_directory, processed_file_name), "wb")
@@ -92,8 +117,19 @@ def preprocess_file(file_name):
 
 if __name__ == "__main__":
     #u use utf8 by default
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-stemming', dest='stemming', default="True")
+    parser.add_argument('-english_check', dest='english_check', default="True")
+    results = parser.parse_args()
+    stemming = True
+    english_check = True
+    if results.stemming == "False":
+        stemming = False
+    if results.english_check == "False":
+        english_check = False
     reload(sys)
     sys.setdefaultencoding('utf-8')
     for filename in os.listdir(raw_directory):
+        print filename
         if filename.endswith(".csv"): 
-            preprocess_file(filename)
+            preprocess_file(filename, stemming=stemming, english_check=english_check)
