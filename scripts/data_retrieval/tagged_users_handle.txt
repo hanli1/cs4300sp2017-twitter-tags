@@ -36,20 +36,37 @@ Food Lover:
 Music Lover:
 @pitchfork
 @TwitterMusic
+@AppleMusic
+@UMG
+@amazonmusic
 
 Gamer:
 @gameinformer
 @gamespot
+@Game_Insight
+@joystiq
+@GoodGamingInc
 
 Religious:
 @CNNbelief
 @DalaiLama
 @Pontifex
+@ReligionReport
+@ABCReligion
+@HuffPostRelig
 
 Art Lover:
 @SaatchiArt
 @artsy
+@artdotcom
+@ArtMonthly
+
 
 Science Lover:
 @NASA
+@sciam
 @sciencemagazine
+@scienmag
+@WIREDScience
+@ScienceNews
+@PopSci
