@@ -4,6 +4,11 @@ Liberal:
 @JoeBiden
 @NancyPelosi
 @SenatorReid
+@BarackObama
+@HillaryClinton
+@SenWarren ‏
+@timkaine
+@JoeBiden
 
 Conservative:
 @GOP
@@ -11,6 +16,12 @@ Conservative:
 @HouseGOP
 @AppSame
 @SarahPalinUSA
+@marcorubio
+@tedcruz
+@MittRomney ‏
+@SenJohnMcCain
+@JohnKasich
+@TomiLahren
 
 Sports Fan:
 @espn
@@ -39,6 +50,12 @@ Music Lover:
 @AppleMusic
 @UMG
 @amazonmusic
+@Genius
+@billboard
+@vevo
+@RecordingAcad
+@pandoramusic
+@Spotify
 
 Gamer:
 @gameinformer
@@ -46,6 +63,11 @@ Gamer:
 @Game_Insight
 @joystiq
 @GoodGamingInc
+@RockstarGames
+@PlayStation
+@Xbox
+@Ubisoft
+@Naughty_Dog
 
 Religious:
 @CNNbelief
@@ -60,7 +82,6 @@ Art Lover:
 @artsy
 @artdotcom
 @ArtMonthly
-
 
 Science Lover:
 @NASA
