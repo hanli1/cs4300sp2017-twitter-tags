@@ -16,7 +16,7 @@ def populate():
       for tag in tags:
         if tag:
           p = UserTag.objects.get_or_create(name=unicode(name), category=tag)[0]
-          print "added: " + str(p)
+          # print "added: " + str(p)
 
   
 
@@ -34,6 +34,8 @@ if __name__ == '__main__':
   populate() 
 
   #retrieve some stuff
-  cat = list(UserTag.objects.filter(category="fashion_lover").values("name"))
-  cat = [i["name"] for i in cat]
+  # cat = list(UserTag.objects.filter(category="fashion_lover").values("name"))
+  # cat = [i["name"] for i in cat]
+  cat = list(UserTag.objects.all().values("category"))
+  cat = set([i["category"] for i in cat])
   print cat  

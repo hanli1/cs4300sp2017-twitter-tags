@@ -12,10 +12,15 @@ import os
 
 # Create your views here.
 def index(request):
-  output_list = ''
   output=''
   if request.GET.get('search'):
-    search = request.GET.get('search')
+    search = request.GET.get('user_query')
+    tags = request.GET.getlist('tags[]')
+    print search
+    print tags
+
+    # do operations here
+    # output = "HELLO"
     output_list = find_similar(search)
     paginator = Paginator(output_list, 10)
     page = request.GET.get('page')
@@ -29,6 +34,13 @@ def index(request):
              {'output': output,
               'magic_url': request.get_full_path(),
               })
+
+def search(request):
+  search = request.GET.get('user_query')
+  tags = request.GET.getlist('tags[]')
+  print search
+  print tags
+  return JsonResponse({})
 
 users = []
 def get_users_handles(request):
@@ -58,7 +70,8 @@ def get_tag_labels(request):
     #   with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
     #     all_names = f2.readlines()
     #     users = [{"value": i + " " + j} for i, j in zip(all_handles, all_names)]
-    tags = [{"value": "food"}, {"value": "democrats"}]
+    og_tags = [u'liberal', u'food_lover', u'music_lover', u'art_lover', u'science_lover', u'gamer', u'sports_fan', u'fashion_lover', u'conservative', u'religious']
+    tags = [{"value": i} for i in og_tags]
 
   data = {}
   data["suggestions"] = tags
