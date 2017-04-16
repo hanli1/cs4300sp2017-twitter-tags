@@ -52,7 +52,11 @@ def preprocess_file(file_name, stemming=True, english_check=True, tagged=True):
         current_user = ""
         current_user_english_tweets = 0
         current_user_total_tweets = 0
-        for tweet_id, name, date, favorites, text in reader:
+        for line in reader:
+            if tagged:
+                tweet_id, name, date, favorites, text = line
+            else:
+                tweet_id, name, text = line
             try:
                 if current_user != name:
                     if current_user != "":
@@ -92,12 +96,17 @@ def preprocess_file(file_name, stemming=True, english_check=True, tagged=True):
                         current_user_english_tweets = current_user_english_tweets + 1
                         processed_tweet = " ".join(tokens)
                         if len(processed_tweet) > 1:
-                            current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])
+                            if tagged:
+                                current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])
+                            else:
+                                current_user_tweets.append([tweet_id, name, processed_tweet])
                 else:
                     processed_tweet = " ".join(tokens)
                     if len(processed_tweet) > 1:
-                        current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])   
-
+                        if tagged:
+                            current_user_tweets.append([tweet_id, name, date, favorites, processed_tweet])
+                        else:
+                            current_user_tweets.append([tweet_id, name, processed_tweet])
             except Exception as e:
                 continue
     if current_user != "":
@@ -150,6 +159,7 @@ if __name__ == "__main__":
     reload(sys)
     sys.setdefaultencoding('utf-8')
     for filename in os.listdir(processed_dir):
-        if filename.endswith(".csv"): 
+        print filename
+        if filename.endswith(".csv"):
             preprocess_file(filename, stemming=stemming, english_check=english_check, 
                 tagged=tagged)
