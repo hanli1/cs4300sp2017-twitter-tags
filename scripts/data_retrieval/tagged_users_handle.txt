@@ -1,27 +1,16 @@
 Liberal:
 @SenSanders
 @TheDemocrats
-@JoeBiden
-@NancyPelosi
-@SenatorReid
 @BarackObama
 @HillaryClinton
 @SenWarren ‏
-@timkaine
-@JoeBiden
 
 Conservative:
 @GOP
 @SpeakerRyan
 @HouseGOP
-@AppSame
 @SarahPalinUSA
-@marcorubio
 @tedcruz
-@MittRomney ‏
-@SenJohnMcCain
-@JohnKasich
-@TomiLahren
 
 Sports Fan:
 @espn

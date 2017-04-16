@@ -94,14 +94,18 @@ def get_tagged_users_handles_dict():
   return tagged_users_dict
 
 
-def write_to_csv(tweets_by_user, csv_file):
-  if os.path.isfile(os.path.join(raw_directory, csv_file)):
-    with open(os.path.join(raw_directory, csv_file), 'a') as f:
+def write_to_csv(tweets_by_user, csv_file, tagged=False):
+  if tagged:
+    file_location = os.path.join(raw_directory, "tagged", csv_file)
+  else:
+    file_location = os.path.join(raw_directory, csv_file)
+  if os.path.isfile(file_location):
+    with open(file_location, 'a') as f:
       writer = csv.writer(f)
       for name, tweets in tweets_by_user.items():
         writer.writerows(tweets)
   else:
-    with open(os.path.join(raw_directory, csv_file), 'wb') as f:
+    with open(file_location, 'wb') as f:
       writer = csv.writer(f)
       writer.writerow(["id","name","date","favorites","text"])
       for name, tweets in tweets_by_user.items():
@@ -139,7 +143,7 @@ if __name__ == "__main__":
       tag_people_list = tag_to_people_dict[tag]
       for person in tag_people_list:
         user_tweets = get_user_tweets(person, i + 1)
-        write_to_csv(user_tweets, tag.replace(" ", "_") + ".csv")
+        write_to_csv(user_tweets, tag.replace(" ", "_") + ".csv", tagged=True)
         #Wait for a minute before getting more tweets
         if i > 1 and i%WAIT_NUM == 0:
           print("\n---- Retrieved from " + str(i + 1) + " people, waiting for 30 seconds before continuing ----\n")

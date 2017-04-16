@@ -35,14 +35,18 @@ def tweet_is_english(content, tokens):
     return ((float(num_english_tokens) / len(tokens)) >= 0.6 or detect(content) == "en")
 
 
-def preprocess_file(file_name, stemming=True, english_check=True):
+def preprocess_file(file_name, stemming=True, english_check=True, tagged=True):
     """
     One version of preprocessing that removes links, emojis, punctuation, and stop words, 
     as well as potentially performing stemming and checking for english tweets depending
     on the arguments of stemming, english_check
     """
     file_text = []
-    with open(os.path.join(raw_directory, file_name), 'rb') as f:
+    if tagged:
+        file_location = os.path.join(raw_directory, "tagged", file_name)
+    else:
+        file_location = os.path.join(raw_directory, file_name)
+    with open(file_location, 'rb') as f:
         reader = csv.reader(f)
         current_user_tweets = []
         current_user = ""
@@ -110,7 +114,11 @@ def preprocess_file(file_name, stemming=True, english_check=True):
             file_text = file_text + current_user_tweets
     file_end_index = file_name.find(".csv")
     processed_file_name = file_name[:file_end_index] + "_processed.csv"
-    processed_file = open(os.path.join(processed_directory, processed_file_name), "wb")
+    if tagged:
+        file_location = os.path.join(processed_directory, "tagged", processed_file_name)
+    else:
+        file_location = os.path.join(processed_directory, processed_file_name)
+    processed_file = open(file_location, "wb")
     writer = csv.writer(processed_file)
     writer.writerows(file_text)
     processed_file.close()
@@ -118,8 +126,14 @@ def preprocess_file(file_name, stemming=True, english_check=True):
 if __name__ == "__main__":
     #u use utf8 by default
     parser = argparse.ArgumentParser()
+    #command line flag to control whether to perform stemming during preprocessing
     parser.add_argument('-stemming', dest='stemming', default="True")
+    #command line flag to control whether to only consider twitter individuals with
+    #mostly english tweets
     parser.add_argument('-english_check', dest='english_check', default="True")
+    #command line flag to control whether to perform preprocessing on unlabeled tweets
+    #or the labeled tweets in the "tagged" directory
+    parser.add_argument('-tagged', dest='tagged', default="True")
     results = parser.parse_args()
     stemming = True
     english_check = True
@@ -127,9 +141,15 @@ if __name__ == "__main__":
         stemming = False
     if results.english_check == "False":
         english_check = False
+    if results.tagged == "True":
+        tagged = True
+        processed_dir = os.path.join(raw_directory, "tagged")
+    else:
+        tagged = False
+        processed_dir = raw_directory
     reload(sys)
     sys.setdefaultencoding('utf-8')
-    for filename in os.listdir(raw_directory):
-        print filename
+    for filename in os.listdir(processed_dir):
         if filename.endswith(".csv"): 
-            preprocess_file(filename, stemming=stemming, english_check=english_check)
+            preprocess_file(filename, stemming=stemming, english_check=english_check, 
+                tagged=tagged)

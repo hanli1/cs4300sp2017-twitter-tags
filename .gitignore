@@ -7,3 +7,4 @@ scripts/user_tweets.csv
 scripts/processed_tweets.csv
 scripts/*.csv
 *.DS_Store
+.idea/
