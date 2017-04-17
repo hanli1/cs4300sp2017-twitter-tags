@@ -1,18 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
-from .models import Docs
 from django.template import loader
 from .form import QueryForm
-from .test import find_similar
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import simplejson as json
 from django.http import JsonResponse
 import os
 import numpy as np
-from .models import UserTag
+from .models import UserTag, TwitterUser, Tag
 
 from cos_sim import setup_and_run
+
 
 # Create your views here.
 def index(request):
@@ -22,11 +21,9 @@ def index(request):
     tags = request.GET.getlist('tags[]')
     print search
     print tags
-
     # do operations here
     # output = "HELLO"
-    output_list = find_similar(search)
-    paginator = Paginator(output_list, 10)
+    paginator = Paginator([], 10)
     page = request.GET.get('page')
     try:
       output = paginator.page(page)
@@ -39,16 +36,13 @@ def index(request):
               'magic_url': request.get_full_path(),
               })
 
+
 def search(request):
   search = request.GET.get('user_query')
   tags = request.GET.getlist('tags[]')
-  print search
-  print tags
-
   space_index = search.index(" ")
   name = search[space_index + 1:]
   cossim = setup_and_run(name)
-
   if tags:
     first_tag_tuples= list(UserTag.objects.filter(category=tags[0]).values("name"))
     first_tag_people = set([i["name"] for i in first_tag_tuples])
@@ -62,41 +56,51 @@ def search(request):
   else:
     results = cossim[:10]
   data = {}
-  print results
   data["results"] = results
   return JsonResponse(data)
 
-users = []
+
 def get_users_handles(request):
-  global users
-
-  if len(users) == 0:
-    # first time, load from disk
-    with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_handle.txt", "r+") as f1:
-      all_handles = f1.readlines()
-      with open(os.path.dirname(__file__ ) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
-        all_names = f2.readlines()
-        users = [{"value": i + " " + j} for i, j in zip(all_handles, all_names)]
-
-  data = {}
-  data["suggestions"] = users
-  # data["suggestions"] = [{"value":"hello"}]
+  user_tags = TwitterUser.objects.all()
+  users = []
+  for user_tag in user_tags:
+    user = user_tag.user
+    users.append({"value": user.twitter_handle + " " + user.name})
+  data = {"suggestions": users}
   return JsonResponse(data)
 
-tags = []
+
 def get_tag_labels(request):
-  global tags
+  og_tags = [u'liberal', u'food_lover', u'music_lover', u'art_lover', u'science_lover', u'gamer', u'sports_fan', \
+             u'fashion_lover', u'conservative', u'religious']
+  tags = [{"value": i} for i in og_tags]
 
-  if len(tags) == 0:
-    # first time, load from disk
-    # with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_handle.txt", "r+") as f1:
-    #   all_handles = f1.readlines()
-    #   with open(os.path.dirname(__file__) + "/../scripts/data_retrieval/top_users_name.txt", "r+") as f2:
-    #     all_names = f2.readlines()
-    #     users = [{"value": i + " " + j} for i, j in zip(all_handles, all_names)]
-    og_tags = [u'liberal', u'food_lover', u'music_lover', u'art_lover', u'science_lover', u'gamer', u'sports_fan', u'fashion_lover', u'conservative', u'religious']
-    tags = [{"value": i} for i in og_tags]
-
-  data = {}
-  data["suggestions"] = tags
+  data = {"suggestions": tags}
   return JsonResponse(data)
+
+
+def get_user_info(request):
+  twitter_handle = request.GET.get("twitter_handle")
+  try:
+    user = TwitterUser.objects.get(twitter_handle=twitter_handle)
+    user_tags_objects = UserTag.objects.filter(user=user)
+    user_tags_list = []
+    for tag_obj in user_tags_objects:
+      user_tags_list.append(tag_obj.name)
+    return {
+      "user_data": {
+        "name": user.name,
+        "twitter_handle": user.twitter_handle,
+        "profile_image": user.profile_image
+      },
+      "user_tags": user_tags_list
+    }
+  except Exception as e:
+    return {
+      "user_data": {
+        "name": "User Not Found",
+        "twitter_handle": "",
+        "profile_image": "http://placehold.it/250x250"
+      },
+      "user_tags": []
+    }
