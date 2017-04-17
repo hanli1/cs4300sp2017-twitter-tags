@@ -20,7 +20,12 @@ $( document ).ready(function() {
           tags: get_query_tags()
       }
       $.get('/pt/ajax/search', data, function(response){
-        
+        var results = response["results"];
+        var formatted = "";
+        for(i = 0; i < results.length; i++){
+          formatted += (i+1) + " " + results[i] + "\n";
+        }
+        $("#result").html(formatted);
       });
     });
 });
@@ -28,7 +33,7 @@ $( document ).ready(function() {
 function get_query_tags(){
   tags = [];
   $('#tags-container').children().each(function () {
-      if($(this).style == null){
+      if($(this).is(':visible')){
         tag = $(this).html().split("<")[0];
         tags.push(tag);
       }

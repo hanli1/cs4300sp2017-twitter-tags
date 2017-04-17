@@ -7,9 +7,10 @@ import os
 import csv
 import numpy as np
 import sys
-from preprocess import processed_directory
 
-pickle_directory = 'pickles'
+directory = os.path.dirname(__file__)
+processed_directory = os.path.join(directory, "../data/processed_tweets")
+pickle_directory = os.path.join(directory, '../scripts/machine_learning/pickles')
 
 count_vec = CountVectorizer(max_df=0.8, min_df=10, stop_words='english')
 tfidf_vec = TfidfVectorizer(max_df=0.8, min_df=10, stop_words='english', norm='l2')
@@ -107,6 +108,26 @@ def print_top_words(model, feature_names, n_top_words):
     for topic_idx, topic in enumerate(model.components_):
         print("Topic #%d:" % topic_idx)
         print(" ".join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]))
+
+def setup_and_run(user):
+  global cos_sim_matrix
+
+  if not os.path.exists(os.path.join(pickle_directory, 'user_to_tweets.pickle')) :
+      for filename in os.listdir(processed_directory):
+          if filename.endswith(".csv") : build_data(filename, english_only)
+
+      # saves all relevant maps as pickle files for faster retrieval in subsequent runs
+      save_maps()
+
+      # save tf-idf matrix
+      save_count_and_tfidf_matrix()
+
+  load_maps()
+  load_count_and_tfidf_matrix()
+
+  # get cos_sim matrix
+  cos_sim_matrix = np.dot(user_by_vocab_tfidf, user_by_vocab_tfidf.T)
+  return get_similar_accounts(user)
 
 if __name__ == "__main__":
     english_only = True

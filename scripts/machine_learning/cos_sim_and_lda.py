@@ -7,7 +7,7 @@ import os
 import csv
 import numpy as np
 import sys
-from preprocess import processed_directory
+processed_directory = "../../data/processed_tweets"
 
 pickle_directory = 'pickles'
 
