@@ -65,7 +65,7 @@
   color: white;
   font-size: 55px;
   font: sans-serif;
-  text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
+  text-align: center;
 }
 #user-selection-input{
   border-width: 0px;
@@ -132,4 +132,14 @@ input:focus::-webkit-input-placeholder {
 #tags-container {
   padding: 10px;
 
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+ol li.list-group-item { 
+    list-style: decimal inside;
+    display: list-item;
 }

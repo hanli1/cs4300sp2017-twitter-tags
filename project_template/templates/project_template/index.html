@@ -1,60 +1,47 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="/static/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/main.css">
-    </head>
-    
-    <body>
-        <!-- TODO: Please change lines 10 and 11 according to your actual project name and student names-->
-        <div class="topcorner">
-            <p>Similarity of Famous Twitter Individuals</p>
-            <p>hl565, lt342, kzj3, omo5</p>
-        </div>
-        
-        <div class="form-inline global-search" method='GET'>
-            <h1 id="title">
-                Twitter Similarity
-            </h1>
-            
-            <br><br>
-            
-            <div class="form-group">
-                <input id="user-selection-input" type="text" name="search" class="form-control glowing-border" placeholder="Your Input">
-                <input id="tag-selection-input" type="text" class="form-control glowing-border" placeholder="Tags">
-            </div>
-            <button id="search-button" class="btn btn-info">Search</button>
-        </div>
-        
-        <div id="tags-container">
-        </div>
-        <div id="result">
-        </div>
-        <div class="form-inline global-search">
-            <h4>Output</h4><br>
-            {% for line in output %}
-                {{line}}<br>
-            {% endfor %}
-            
-            <div class="pagination">
-                <span class="step-links">
-                    {% if output.has_previous %}
-                    <a href= "{{magic_url}}&page={{ output.previous_page_number }}">previous</a>
-                    {% endif %}
-                    
-                    <!-- Showing the page numbers in Html Page -->
-                    <span class="current">
-                    Page _{{ output.number }}_ of _{{ output.paginator.num_pages }}_
-                    </span>
-                    
-                    {% if output.has_next %}
-                    <a href= "{{magic_url}}&page={{ output.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/jquery.autocomplete.js"></script>
-        <script type="text/javascript" src="/static/main.js"></script>
+<head>
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/main.css">
+</head>
 
-    </body>
+<body>
+  <!-- TODO: Please change lines 10 and 11 according to your actual project name and student names-->
+  <div class="topcorner">
+    <p>Similarity of Famous Twitter Individuals</p>
+    <p>hl565, lt342, kzj3, omo5</p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <h1 class="col-centered" id="title">
+        Twitter Similarity
+      </h1>
+    </div>
+    <div class="row">
+      <div class="form-inline global-search" method='GET'>
+        <div class="form-group">
+          <input id="user-selection-input" type="text" name="search" class="form-control glowing-border" placeholder="Your Input">
+          <input id="tag-selection-input" type="text" class="form-control glowing-border" placeholder="Tags">
+        </div>
+        <button id="search-button" class="btn btn-info">Search</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2 col-centered" id="tags-container">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2 col-centered" id="result">
+      </div>
+    </div>
+   
+    
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/jquery.autocomplete.js"></script>
+  <script type="text/javascript" src="/static/main.js"></script>
+
+</body>
 </html>

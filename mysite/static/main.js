@@ -1,31 +1,27 @@
 $( document ).ready(function() {
 
     $("#search-button").click(function(event){
-      // $.ajax({
-      //   url: "",
-      //   type: "get", //send it through get method
-      //   data: { 
-      //     user_query: $("#user-selection-input").val(), 
-      //     tags: get_query_tags()
-      //   },
-      //   success: function(response) {
-      //     //Do Something
-      //   },
-      //   error: function(xhr) {
-      //     //Do Something to handle error
-      //   }
-      // });
       data = { 
           user_query: $("#user-selection-input").val(), 
           tags: get_query_tags()
       }
       $.get('/pt/ajax/search', data, function(response){
         var results = response["results"];
-        var formatted = "";
+
+        $("#result").empty();
+        var listGroup = $("<ol class=\"list-group\"></ol>");
+
         for(i = 0; i < results.length; i++){
-          formatted += (i+1) + " " + results[i] + "\n";
+          var listItem = $("<li class=\"list-group-item\"></li>");
+          result = results[i]
+          var formattedItem = listItem.html(result[0] + " " + (result[1] * 100).toFixed(2) + "%");
+          listGroup.append(formattedItem);
         }
-        $("#result").html(formatted);
+        if(results.length == 0){
+          var empty = listItem.html("No results found");
+          listGroup.append(empty);
+        }
+        $("#result").append(listGroup);
       });
     });
 });
