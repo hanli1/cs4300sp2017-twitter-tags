@@ -20,6 +20,7 @@ html {
   background: -webkit-linear-gradient(bottom, #09f, #45d1ff);*/
 
   background-image: url("clouds.jpg");
+  background-size: 100% 100%;
   background-position: 0px 0px;
   background-repeat: repeat-x;
   /*animation: animatedBackground 10s linear infinite;*/
@@ -160,6 +161,8 @@ ol li.list-group-item {
 }
 
 #user_information_wrapper {
+  margin-top: 10px;
   text-align: center;
   display: none;
+  font-size: 15px;
 }

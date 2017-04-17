@@ -19,8 +19,6 @@ def index(request):
   if request.GET.get('search'):
     search = request.GET.get('user_query')
     tags = request.GET.getlist('tags[]')
-    print search
-    print tags
     # do operations here
     # output = "HELLO"
     paginator = Paginator([], 10)
@@ -40,32 +38,30 @@ def index(request):
 def search(request):
   search = request.GET.get('user_query')
   tags = request.GET.getlist('tags[]')
-  space_index = search.index(" ")
-  name = search[space_index + 1:]
+  space_index = search.rfind(" ")
+  name = search[:space_index]
   cossim = setup_and_run(name)
   if tags:
-    first_tag_tuples= list(UserTag.objects.filter(category=tags[0]).values("name"))
-    first_tag_people = set([i["name"] for i in first_tag_tuples])
+    user_tags= list(UserTag.objects.filter(tag__name=tags[0]))
+    first_tag_people = set([user_tag.user.name for user_tag in user_tags])
     set_of_users = first_tag_people
     tags = tags[1:]
     for tag in tags:
-      tuples= list(UserTag.objects.filter(category=tag).values("name"))
-      people = set([i["name"] for i in tuples])
+      user_tags = list(UserTag.objects.filter(tag__name=tag))
+      people = set([user_tag.user.name for user_tag in user_tags])
       set_of_users = set_of_users.intersection(people)
     results = [i for i in cossim if i[0] in set_of_users][:10]
   else:
     results = cossim[:10]
-  data = {}
-  data["results"] = results
+  data = {"results": results}
   return JsonResponse(data)
 
 
 def get_users_handles(request):
-  user_tags = TwitterUser.objects.all()
+  twitter_users = TwitterUser.objects.all()
   users = []
-  for user_tag in user_tags:
-    user = user_tag.user
-    users.append({"value": user.twitter_handle + " " + user.name})
+  for twitter_user in twitter_users:
+    users.append({"value": twitter_user.name + " (@" + twitter_user.twitter_handle + ")"})
   data = {"suggestions": users}
   return JsonResponse(data)
 
@@ -86,21 +82,21 @@ def get_user_info(request):
     user_tags_objects = UserTag.objects.filter(user=user)
     user_tags_list = []
     for tag_obj in user_tags_objects:
-      user_tags_list.append(tag_obj.name)
-    return {
+      user_tags_list.append(tag_obj.tag.name)
+    return JsonResponse({
       "user_data": {
         "name": user.name,
         "twitter_handle": user.twitter_handle,
         "profile_image": user.profile_image
       },
       "user_tags": user_tags_list
-    }
+    })
   except Exception as e:
-    return {
+    return JsonResponse({
       "user_data": {
         "name": "User Not Found",
         "twitter_handle": "",
-        "profile_image": "http://placehold.it/250x250"
+        "profile_image": "http://placehold.it/150x150"
       },
       "user_tags": []
-    }
+    })

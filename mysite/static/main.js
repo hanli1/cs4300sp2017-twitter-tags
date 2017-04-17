@@ -13,7 +13,7 @@ function send_search_query(){
       user_query: $("#user-selection-input").val(), 
       tags: get_query_tags()
   }
-  $.get('/pt/ajax/search', data, function(response){
+  $.get('/pt/api/search', data, function(response){
     var results = response["results"];
 
     $("#result").empty();
@@ -56,12 +56,15 @@ $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
       autoSelectFirst: true,
       onSelect: function (suggestion) {
           // Display information about the selected user
-          var twitter_handle = suggestion.split(" ")[0]
+          console.log(suggestion.value);
+          var suggestion_components = suggestion.value.split(" ");
+          var twitter_handle = suggestion_components[suggestion_components.length - 1];
+          var twitter_handle = twitter_handle.substring(2, twitter_handle.length - 1);
           $.getJSON('/pt/api/get_user_info', {twitter_handle: twitter_handle}, function(data, jqXHR){
               var user_data = data.user_data;
               var user_tags = data.user_tags;
               $("#user_name").text(user_data.name);
-              $("#user_handle").attr("href","twitter.com/" + user_data.twitter_handle);
+              $("#user_handle").attr("href","https://twitter.com/" + user_data.twitter_handle);
               $("#user_handle").text("@" + user_data.twitter_handle);
               $("#user_profile_picture").attr("src", user_data.profile_image);
               $("#user_name").text(user_data.name);
