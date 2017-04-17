@@ -1,35 +1,39 @@
 $( document ).ready(function() {
-
-    $("#search-button").click(function(event){
-      // $.ajax({
-      //   url: "",
-      //   type: "get", //send it through get method
-      //   data: { 
-      //     user_query: $("#user-selection-input").val(), 
-      //     tags: get_query_tags()
-      //   },
-      //   success: function(response) {
-      //     //Do Something
-      //   },
-      //   error: function(xhr) {
-      //     //Do Something to handle error
-      //   }
-      // });
-      data = { 
-          user_query: $("#user-selection-input").val(), 
-          tags: get_query_tags()
-      }
-      $.get('/pt/api/search', data, function(response){
-        var results = response["results"];
-        var formatted = "";
-        for(i = 0; i < results.length; i++){
-          formatted += (i+1) + " " + results[i] + "\n";
-        }
-        $("#result").html(formatted);
-      });
-    });
+  $("#search-button").click(send_search_query);
+  $("#user-selection-input").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+      send_search_query();
+    }
+  });
 });
 
+function send_search_query(){
+  // on search button click send query to django backend
+  data = { 
+      user_query: $("#user-selection-input").val(), 
+      tags: get_query_tags()
+  }
+  $.get('/pt/ajax/search', data, function(response){
+    var results = response["results"];
+
+    $("#result").empty();
+    var listGroup = $("<ol class=\"list-group\"></ol>");
+
+    for(i = 0; i < results.length; i++){
+      var listItem = $("<li class=\"list-group-item\"></li>");
+      result = results[i]
+      var formattedItem = listItem.html(result[0] + " " + (result[1] * 100).toFixed(2) + "%");
+      listGroup.append(formattedItem);
+    }
+    if(results.length == 0){
+      var empty = listItem.html("No results found");
+      listGroup.append(empty);
+    }
+    $("#result").append(listGroup);
+  });
+}
+
+// retrieves the tags that the user has selected
 function get_query_tags(){
   tags = [];
   $('#tags-container').children().each(function () {
@@ -41,6 +45,8 @@ function get_query_tags(){
   return tags;
 }
 
+
+// retrieves all the users and set up autocomplete
 $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
     // do something with response
     users = data["suggestions"];
@@ -49,6 +55,7 @@ $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
       lookupLimit: 5,
       autoSelectFirst: true,
       onSelect: function (suggestion) {
+          // Display information about the selected user
           var twitter_handle = suggestion.split(" ")[0]
           $.getJSON('/pt/api/get_user_info', {twitter_handle: twitter_handle}, function(data, jqXHR){
               var user_data = data.user_data;
@@ -70,6 +77,8 @@ $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
     });
 });
 
+
+// get all the tags available and set up autocomplete
 $.getJSON('/pt/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
     // do something with response
     tag_labels = data["suggestions"];
@@ -89,17 +98,4 @@ $.getJSON('/pt/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
 });
 
 
-
-// $('#user-selection-input').autocomplete({
-//     serviceUrl: '/pt/ajax/get_users_handles',
-//     onSelect: function (suggestion) {
-//         console.log(suggestion);
-//     }
-//     // transformResult: function(response) {
-//     //   console.log(response);
-//     //   console.log(JSON.parse(response));
-//     //   return JSON.parse(response);
-//     //   // return {"suggestion": ["hello", "world"]}
-//     // }
-// });
 
