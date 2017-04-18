@@ -15,12 +15,12 @@ html {
   body {
   padding-top: 15%;
   padding-bottom: 15px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   /*background: linear-gradient(bottom, #09f, #45d1ff);
   background: -webkit-linear-gradient(bottom, #09f, #45d1ff);*/
 
   background-image: url("clouds.jpg");
-  background-size: 100% 100%;
+  /*background-size: 100% 100%;*/
   background-position: 0px 0px;
   background-repeat: repeat-x;
   /*animation: animatedBackground 10s linear infinite;*/
