@@ -4,10 +4,14 @@ This project allows the user to select a top 1000 Twitter user along with some t
 Created by: for CS 4300 at Cornell University
 ## Setup
 ```
-git clone https://github.com/hanli1/cs4300sp2017-twitter-tags.git
-python manage.py runserver
+-git clone https://github.com/hanli1/cs4300sp2017-twitter-tags.git
+-pip install -r requirements.txt
+-Create a localsettings.py file in mysite that is based on the settings.py file, but with things filled in
+-Perform Django migrations to build your database models
+-Prepopulate data using the prepopulate.py script
+-python manage.py runserver
 ```
-Open in browser: http://127.0.0.1:8000/pt
+Open in browser: http://127.0.0.1:8000
 
 
 ## About this framework
