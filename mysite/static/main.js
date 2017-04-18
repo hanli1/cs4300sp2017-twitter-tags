@@ -13,7 +13,7 @@ function send_search_query(){
       user_query: $("#user-selection-input").val(), 
       tags: get_query_tags()
   }
-  $.get('/pt/api/search', data, function(response){
+  $.get('/api/search', data, function(response){
     var results = response["results"];
 
     $("#result").empty();
@@ -47,7 +47,7 @@ function get_query_tags(){
 
 
 // retrieves all the users and set up autocomplete
-$.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
+$.getJSON('/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
     // do something with response
     users = data["suggestions"];
     $('#user-selection-input').autocomplete({
@@ -60,7 +60,7 @@ $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
           var suggestion_components = suggestion.value.split(" ");
           var twitter_handle = suggestion_components[suggestion_components.length - 1];
           var twitter_handle = twitter_handle.substring(2, twitter_handle.length - 1);
-          $.getJSON('/pt/api/get_user_info', {twitter_handle: twitter_handle}, function(data, jqXHR){
+          $.getJSON('/api/get_user_info', {twitter_handle: twitter_handle}, function(data, jqXHR){
               var user_data = data.user_data;
               var user_tags = data.user_tags;
               $("#user_name").text(user_data.name);
@@ -82,7 +82,7 @@ $.getJSON('/pt/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
 
 
 // get all the tags available and set up autocomplete
-$.getJSON('/pt/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
+$.getJSON('/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
     // do something with response
     tag_labels = data["suggestions"];
     $('#tag-selection-input').autocomplete({
