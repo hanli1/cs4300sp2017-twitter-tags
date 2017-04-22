@@ -1,3 +1,7 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
 @media (min-width: 1200px) {
   .container {
   max-width: 970px;
@@ -11,10 +15,12 @@
   body {
   padding-top: 15%;
   padding-bottom: 15px;
+  margin-bottom: 30px;
   /*background: linear-gradient(bottom, #09f, #45d1ff);
   background: -webkit-linear-gradient(bottom, #09f, #45d1ff);*/
 
   background-image: url("clouds.jpg");
+  /*background-size: 100% 100%;*/
   background-position: 0px 0px;
   background-repeat: repeat-x;
   /*animation: animatedBackground 10s linear infinite;*/
@@ -65,7 +71,7 @@
   color: white;
   font-size: 55px;
   font: sans-serif;
-  text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
+  text-align: center;
 }
 #user-selection-input{
   border-width: 0px;
@@ -131,5 +137,32 @@ input:focus::-webkit-input-placeholder {
 
 #tags-container {
   padding: 10px;
+}
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+ol li.list-group-item { 
+    list-style: decimal inside;
+    display: list-item;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  text-align: right;
+  color: black;
+  line-height: 10px;
+}
+
+#user_information_wrapper {
+  margin-top: 10px;
+  text-align: center;
+  display: none;
+  font-size: 15px;
 }

@@ -8,3 +8,5 @@ scripts/processed_tweets.csv
 scripts/*.csv
 *.DS_Store
 .idea/
+mysite/localsettings.py
+

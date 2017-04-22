@@ -1,6 +1,5 @@
 LIFE: art_lover fashion_lover 
-ESPN: sports_fan 
-Twitter Media: gamer music_lover sports_fan 
+ESPN: sports_fan
 Calum Hood: music_lover 
 Jamie Oliver: food_lover 
 Mindy Kaling: fashion_lover music_lover 
@@ -245,7 +244,7 @@ Women's Health: fashion_lover food_lover religious science_lover
 Niall Horan: gamer music_lover 
 The Voice: music_lover 
 christine teigen: food_lover liberal music_lover 
-Relationship ‰ªÁ: liberal religious 
+Relationship ï¿½ï¿½ï¿½: liberal religious 
 PRIYANKA: conservative music_lover 
 yuvraj singh: conservative gamer 
 Farhan Akhtar: gamer music_lover 
