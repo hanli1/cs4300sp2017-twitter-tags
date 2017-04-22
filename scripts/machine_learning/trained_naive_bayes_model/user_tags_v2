@@ -3,18 +3,18 @@ ESPN: sports_fan
 Anna Kendrick: music_lover 
 Calum Hood: music_lover 
 Jamie Oliver: food_lover 
-Mindy Kaling: music_lover conservative gamer 
+Mindy Kaling: music_lover conservative  
 Olympics: food_lover music_lover sports_fan 
 Neil deGrasse Tyson: science_lover 
 Men's Health Mag: science_lover 
 BBC News (World): science_lover 
 relationships: conservative music_lover 
-Paul Wesley: gamer conservative music_lover 
+Paul Wesley: music_lover 
 Virat Kohli: gamer 
 Tyra Banks: fashion_lover music_lover 
 Ozzy Osbourne: music_lover 
 H&M: fashion_lover 
-Markiplier: gamer conservative 
+Markiplier: gamer 
 Lucy Hale: music_lover conservative 
 RainnWilson: music_lover conservative science_lover 
 Dhanush: gamer 
@@ -23,8 +23,8 @@ UberSocial: gamer
 Alfie Deyes: gamer conservative music_lover 
 jack: conservative gamer music_lover 
 Ariana Grande: music_lover
-Rev Run: conservative music_lover religious 
-Dylan O'Brien: music_lover conservative gamer 
+Rev Run: music_lover religious 
+Dylan O'Brien: music_lover gamer 
 TwitPic: gamer 
 Steam: gamer 
 KATH: conservative gamer music_lover 
@@ -35,7 +35,7 @@ The Weeknd: music_lover
 Stephen Colbert: music_lover conservative fashion_lover liberal science_lover 
 The Notebook: conservative liberal music_lover 
 Rohit Sharma: gamer 
-DWade: gamer conservative music_lover sports_fan 
+DWade: gamer music_lover sports_fan 
 DavidKWilliams: conservative 
 NPR: liberal science_lover 
 比偉斗: music_lover 
@@ -50,7 +50,7 @@ Arsenal FC: gamer conservative sports_fan
 Soulja Boy: music_lover 
 5 Seconds Of Summer: music_lover 
 SHAQ: music_lover sports_fan
-Anderson Cooper: conservative gamer music_lover 
+Anderson Cooper: liberal music_lover 
 Dana White: sports_fan 
 will.i.am.BUTTONS: music_lover 
 Sean Diddy Combs: music_lover 
@@ -77,7 +77,7 @@ Ciara: music_lover conservative fashion_lover
 sachin tendulkar: gamer 
 Electronic Arts: gamer 
 OneLouder Apps: gamer 
-Holly Willoughby: conservative fashion_lover gamer music_lover 
+Holly Willoughby: fashion_lover music_lover 
 All India Bakchod: gamer music_lover 
 FIFA.com: gamer music_lover sports_fan 
 Huffington Post: liberal 
@@ -94,7 +94,7 @@ Ricky Martin: music_lover conservative
 Jeremy Clarkson: conservative music_lover 
 Breaking News: science_lover conservative liberal religious sports_fan 
 Bernie Sanders: liberal 
-TechCrunch: science_lover gamer 
+TechCrunch: science_lover 
 Samsung Mobile US: gamer
 Intel: gamer 
 The X Factor: music_lover 
@@ -123,7 +123,7 @@ Coldplay: music_lover
 Bill Maher: conservative liberal music_lover 
 Washington Post: liberal science_lover 
 Luke Bryan: music_lover 
-Kobe Bryant: sports_fan conservative gamer music_lover 
+Kobe Bryant: sports_fan music_lover 
 John Green: gamer conservative 
 Little Mix: music_lover 
 Funny Or Die: music_lover gamer liberal 
@@ -131,33 +131,33 @@ Taylor Swift: music_lover
 Bill Nye: science_lover 
 Lord Sugar: gamer conservative 
 IndianPremierLeague: sports_fan gamer 
-zooey deschanel: music_lover conservative gamer 
+zooey deschanel: music_lover
 Roger Federer: sports_fan 
 Maroon 5: music_lover 
-Usain St. Leo Bolt: music_lover conservative gamer 
+Usain St. Leo Bolt: sports_fan 
 KAPIL: gamer 
 OMGFacts: science_lover conservative 
 Joel Osteen: religious conservative 
-Austin Mahone: conservative gamer music_lover 
+Austin Mahone: music_lover 
 Shahid Kapoor: gamer conservative 
 Stephen Curry: sports_fan gamer 
 Stephen Fry: music_lover conservative gamer religious science_lover 
-Tom Hanks: music_lover conservative 
+Tom Hanks: music_lover 
 Black Eyed Peas: music_lover 
-Cameron Dallas: gamer conservative music_lover 
-Emma Watson: gamer music_lover 
+Cameron Dallas: music_lover 
+Emma Watson: music_lover 
 #BETMusic: music_lover 
 Drizzy: music_lover 
 The Onion: science_lover conservative 
 MTV News: music_lover 
-Hugh Jackman: gamer conservative music_lover 
+Hugh Jackman: conservative music_lover 
 UK Prime Minister: conservative liberal 
 debbyryan: conservative music_lover 
 Sushma Swaraj: conservative religious 
 Shawn Mendes: music_lover 
 Scott Disick: music_lover 
 Sonu Nigam: music_lover gamer 
-Lewis Hamilton: gamer conservative 
+Lewis Hamilton: conservative 
 Adam Levine: music_lover 
 Joyce Meyer: religious 
 Vir Das: music_lover gamer 
@@ -165,10 +165,10 @@ Ashley Benson: fashion_lover conservative music_lover
 Rihanna: music_lover 
 Vine Creators: music_lover 
 Twitter Support: gamer 
-anand mahindra: gamer conservative music_lover religious science_lover 
+anand mahindra: conservative music_lover religious science_lover 
 Apple Music: music_lover 
 Jason Mraz: music_lover 
-Liverpool FC: gamer music_lover sports_fan 
+Liverpool FC: music_lover sports_fan 
 Britney Spears: music_lover 
 Steve Martin: music_lover conservative gamer science_lover 
 Jennifer Hudson: music_lover 
@@ -176,31 +176,31 @@ Chris Paul: music_lover gamer sports_fan
 michael qwertyuiop: music_lover 
 One Direction: music_lover 
 Green Day: music_lover 
-Whole Foods Market: gamer 
-Real Madrid C.F.: sports_fan gamer 
+Whole Foods Market: food_lover 
+Real Madrid C.F.: sports_fan 
 twitcam: music_lover 
 Chris Brown: music_lover 
 Perez Hilton: music_lover conservative 
 Paramore: music_lover 
 Avril Lavigne: music_lover 
 UNICEF: science_lover religious 
-BCCI: conservative sports_fan 
+BCCI: sports_fan 
 Angel Locsin: gamer conservative 
 Mashable: music_lover gamer science_lover 
 Heidi Klum: music_lover 
 Skype: gamer
-Gareth Bale: gamer 
+Gareth Bale: sports_fan  
 Liam: music_lover gamer 
 BBC Breaking News: religious conservative liberal science_lover 
-Starbucks Coffee: food_lover gamer 
+Starbucks Coffee: food_lover  
 Nintendo of America: gamer 
 Sean Don: music_lover 
-Harry Styles.: music_lover gamer 
+Harry Styles.: music_lover  
 Triple H: gamer 
 Dolce & Gabbana: fashion_lover 
-Cristiano Ronaldo: gamer 
+Cristiano Ronaldo: sports_fan  
 Discovery: science_lover 
-Bridgit Mendler: music_lover gamer 
+Bridgit Mendler: music_lover 
 Adam Schefter: sports_fan 
 MYX Philippines: music_lover 
 Just Hold Aoki: music_lover 
@@ -209,31 +209,31 @@ First Lady- Archived: liberal
 Tyler Oakley: music_lover 
 Dior: fashion_lover 
 NBC News: science_lover conservative liberal 
-Bipasha Basu: conservative fashion_lover food_lover gamer music_lover 
-Louis Tomlinson: music_lover gamer 
+Bipasha Basu: conservative fashion_lover food_lover music_lover 
+Louis Tomlinson: music_lover  
 Hilary Duff: music_lover 
-Madhuri Dixit-Nene: gamer 
+Madhuri Dixit-Nene: fashion_lover  
 Ellie Goulding: music_lover 
 Jennifer Lopez: music_lover 
 Kourtney Kardashian: music_lover 
 CNN International: science_lover 
-Twitter Books: music_lover gamer 
-Bianca Gonzalez: conservative gamer music_lover science_lover sports_fan 
+Twitter Books: music_lover  
+Bianca Gonzalez: conservative music_lover science_lover sports_fan 
 Jessie J: music_lover 
 Enrique Iglesias: music_lover 
-Jack Whitehall: gamer music_lover 
+Jack Whitehall: music_lover 
 ASHTON IRWIN: music_lover 
-WWE Universe: sports_fan gamer music_lover 
+WWE Universe: sports_fan music_lover 
 NASA: science_lover 
 BlackBerry: gamer 
 NOOR: gamer conservative music_lover 
 TIME: science_lover liberal 
 Anushka Sharma: gamer music_lover 
-Parineeti Chopra: music_lover conservative gamer 
-Lea Michele: music_lover conservative gamer 
+Parineeti Chopra: music_lover conservative  
+Lea Michele: music_lover conservative 
 Samuel L. Jackson: music_lover 
 Sania Mirza: gamer conservative 
-The Walking Dead AMC: gamer music_lover 
+The Walking Dead AMC: music_lover 
 WikiLeaks: conservative 
 Nicole Polizzi: music_lover conservative 
 Michael Moore: liberal conservative 
@@ -241,7 +241,7 @@ Tony Hawk: music_lover gamer
 LMFAO: music_lover 
 Nick Cannon: music_lover 
 Chris Rock: music_lover conservative 
-Disney Words: music_lover fashion_lover gamer liberal science_lover 
+Disney Words: music_lover fashion_lover liberal science_lover 
 Typical Girl: music_lover conservative 
 NICKI MINAJ: music_lover 
 Russell Simmons: religious liberal music_lover 
@@ -252,21 +252,21 @@ christine teigen: food_lover music_lover
 J. Cole: music_lover 
 PRIYANKA: gamer 
 Farhan Akhtar: gamer conservative music_lover 
-Randy Orton: music_lover gamer 
+Randy Orton: music_lover 
 MarQuis Trill: music_lover 
 Richard Branson: science_lover conservative gamer religious 
-Jim Carrey: conservative gamer music_lover science_lover 
-Hootsuite: science_lover gamer 
-Floyd Mayweather: gamer sports_fan 
+Jim Carrey: conservative music_lover science_lover 
+Hootsuite: science_lover 
+Floyd Mayweather: sports_fan 
 New York Times Books: science_lover fashion_lover religious 
 ABS-CBN News Channel: science_lover conservative 
 Anupam Kher: gamer conservative music_lover religious 
-Pegg News: music_lover conservative gamer 
-Rita Ora: music_lover conservative gamer 
+Pegg News: music_lover conservative 
+Rita Ora: music_lover conservative 
 Cheryl: conservative music_lover 
 Michelle Obama: liberal 
 Miranda Lambert: music_lover 
-Ben Stiller: conservative gamer music_lover 
+Ben Stiller: conservative music_lover 
 Wayne Rooney: gamer 
 Jenna Marbles: music_lover 
 John Legend: liberal music_lover 
@@ -275,26 +275,26 @@ Jonas Enterprises: music_lover
 MLB: sports_fan 
 J: music_lover 
 NDTV: conservative music_lover science_lover 
-RIYA SOMANI: gamer conservative music_lover 
+RIYA SOMANI: conservative music_lover 
 TextsFromLastNight: music_lover food_lover 
 Selena Gomez: music_lover 
-Russell Brand: conservative gamer music_lover 
-Gary Lineker: conservative gamer sports_fan 
+Russell Brand: conservative music_lover 
+Gary Lineker: conservative sports_fan 
 Ubisoft: gamer 
-Jimmy Carr: music_lover gamer science_lover 
-Nash Grier: conservative gamer music_lover 
+Jimmy Carr: music_lover science_lover 
+Nash Grier: conservative music_lover 
 Google: gamer 
 Funny Tweets™: music_lover
 Twitter API: gamer 
 Chelsea Handler: conservative liberal music_lover 
 Brad Paisley: music_lover 
-antanddec: gamer conservative 
+antanddec: conservative 
 Historical Pics: science_lover art_lover fashion_lover music_lover 
-Ricky Gervais: conservative gamer music_lover 
+Ricky Gervais: music_lover 
 นิชคุณ Buck หรเวชกุล: music_lover conservative gamer 
 Demi Moore: gamer conservative music_lover 
 What The F*** Facts: science_lover 
-Paul Pierce: music_lover conservative gamer sports_fan 
+Paul Pierce: music_lover sports_fan 
 Financial Times: science_lover 
 Carly Rae Jepsen: music_lover 
 chris pratt: gamer music_lover 
@@ -303,7 +303,7 @@ Simon Cowell: music_lover
 Pharrell Williams: music_lover 
 FC Barcelona: sports_fan 
 Imran Khan: conservative liberal 
-Alia Bhatt: gamer conservative music_lover 
+Alia Bhatt: music_lover 
 Entertainment Weekly: music_lover gamer 
 Channing Tatum: gamer 
 CHANEL: fashion_lover 
@@ -326,15 +326,15 @@ SportsNation: sports_fan
 Relationship ���: liberal 
 Parents Magazine: science_lover 
 Harvard Biz Review: science_lover 
-Seth Meyers: music_lover liberal gamer 
+Seth Meyers: music_lover liberal 
 Gmail: gamer 
-Manchester United: sports_fan gamer 
-Anne Curtis-Smith: conservative gamer music_lover 
+Manchester United: sports_fan  
+Anne Curtis-Smith: conservative music_lover 
 Rio Ferdinand: conservative 
 Vogue Magazine: fashion_lover 
 Reuters Top News: science_lover liberal 
 Android: gamer 
-ashton kutcher: conservative gamer music_lover science_lover 
+ashton kutcher: liberal music_lover science_lover 
 Lena Dunham: music_lover 
 Nina Dobrev: conservative music_lover 
 Victoria Beckham: fashion_lover 
@@ -345,10 +345,10 @@ Anthony Bourdain: food_lover music_lover
 Pope Francis: religious 
 Gordon Ramsay: food_lover
 Sony: music_lover gamer 
-Mike Tyson: gamer music_lover 
+Mike Tyson: music_lover sports_fan 
 Amy Schumer: music_lover liberal 
 Zoë: gamer music_lover 
-Jonathan Ross: gamer conservative 
+Jonathan Ross: conservative 
 T.I.: music_lover 
 Christina Aguilera: music_lover 
 Piers Morgan: conservative 
@@ -358,13 +358,13 @@ Wiz Khalifa: music_lover
 WWE: sports_fan 
 Rick G. Rosner: conservative science_lover 
 Wall Street Journal: science_lover liberal 
-con: music_lover conservative 
+con: music_lover 
 Olly Murs: music_lover 
 Common White Girl: music_lover 
 The Big Bang Theory: music_lover gamer 
 TMZ: music_lover sports_fan 
 J O E  J O N A S: music_lover 
-Hardwell: music_lover gamer 
+Hardwell: music_lover  
 IGN: gamer 
 Caspar Lee: music_lover 
 The Guardian: liberal science_lover 
@@ -374,10 +374,10 @@ Paris Hilton: music_lover conservative fashion_lover
 Nike.com: gamer 
 Tiger Woods: music_lover 
 Nelly_Mo: music_lover 
-daniel tosh: music_lover conservative food_lover 
+daniel tosh: music_lover food_lover 
 Miranda Kerr: fashion_lover 
 jimmy fallon: music_lover 
-Shreya Ghoshal: music_lover gamer 
+Shreya Ghoshal: music_lover 
 Kevin Spacey: music_lover 
 Food & Wine: food_lover 
 KANYE WEST: music_lover 
@@ -392,11 +392,11 @@ Arun Jaitley: conservative religious
 Hillary Clinton: liberal 
 gucci: fashion_lover 
 kevin jonas: music_lover 
-Chelsea FC: sports_fan gamer 
+Chelsea FC: sports_fan 
 Seth MacFarlane: music_lover 
 Jessica Alba: music_lover fashion_lover food_lover 
 Premier League: sports_fan 
-Harsha Bhogle: gamer conservative science_lover sports_fan 
+Harsha Bhogle: conservative science_lover sports_fan 
 Oprah Winfrey: music_lover conservative 
 Wale: music_lover 
 Jimmy Kimmel: music_lover liberal 
@@ -410,7 +410,7 @@ Demi Lovato: music_lover
 VANITY FAIR: fashion_lover music_lover 
 Champions League: sports_fan 
 MTV: liberal 
-Mesut Özil: sports_fan gamer 
+Mesut Özil: sports_fan 
 Tiësto: music_lover 
 ABC News: science_lover conservative liberal 
 Shashi Tharoor: religious conservative 
@@ -420,7 +420,7 @@ Bill Simmons: sports_fan
 Al Yankovic: music_lover 
 The New York Times: liberal 
 Russell Westbrook: music_lover 
-American Red Cross: science_lover gamer 
+American Red Cross: science_lover 
 Mary J. Blige: music_lover 
 Akshay Kumar: gamer 
 Zendaya: music_lover 
@@ -441,25 +441,25 @@ Khloé: music_lover conservative
 People Magazine: fashion_lover music_lover 
 Barack Obama: liberal 
 Karan Johar: gamer conservative music_lover 
-zayn: music_lover conservative gamer 
+zayn: music_lover  
 Taraji P. Henson: music_lover 
-MARTIN GARRIX: music_lover gamer 
+MARTIN GARRIX: music_lover 
 Ryan Seacrest: music_lover 
-Jessica Simpson: music_lover conservative fashion_lover 
+Jessica Simpson: music_lover fashion_lover 
 John Cena: gamer sports_fan
 Kylie Jenner: music_lover 
 Victoria's Secret: gamer 
 DJ Pauly D: music_lover 
 Lorde: music_lover 
 Bitch Problems: music_lover 
-Sonam Kapoor: gamer conservative 
+Sonam Kapoor: conservative 
 David Guetta: music_lover 
 Trey Songz: music_lover 
 Common Girl: music_lover conservative 
 IGGY AZALEA: music_lover 
 A.R.Rahman: music_lover 
-Angel Rivera: gamer 
-Miley Ray Cyrus: music_lover conservative 
+Angel Rivera: conservative 
+Miley Ray Cyrus: music_lover  
 Bill Gates: science_lover 
 Dr. Mehmet Oz: food_lover science_lover 
 ICC: sports_fan 
@@ -470,38 +470,38 @@ KC Concepcion: food_lover conservative gamer music_lover
 barkha dutt: conservative 
 Lonely Planet: music_lover 
 Ed Sheeran: music_lover 
-Jacqueline Fernandez: gamer conservative music_lover 
+Jacqueline Fernandez: music_lover 
 Microsoft: gamer 
-Kendall: music_lover conservative fashion_lover 
+Kendall: music_lover fashion_lover 
 J.K. Rowling: art_lover 
-Rania Al Abdullah: religious conservative
+Rania Al Abdullah: religious 
 Sofia Vergara: conservative 
 Marvel Entertainment: gamer 
 Sam Smith: music_lover 
 WIRED: science_lover 
 Shakira: music_lover 
 Conan O'Brien: music_lover food_lover gamer liberal science_lover 
-Zac Efron: music_lover gamer 
+Zac Efron: music_lover 
 BBC News (UK): science_lover religious 
 Nicole Richie: music_lover 
 Leonardo DiCaprio: science_lover 
-Trevor Noah: gamer music_lover 
+Trevor Noah: liberal music_lover 
 Lenny Kravitz: music_lover 
 GMA News: science_lover 
-Nike: music_lover 
+Nike: sports_fan  
 Lil Wayne WEEZY F: music_lover 
 Kiran Bedi: religious science_lover 
 Suresh Raina: gamer 
 Sky Sports News HQ: sports_fan 
 Joseph Gordon-Levitt: music_lover science_lover 
-John Cleese: conservative gamer music_lover religious 
+John Cleese: music_lover religious 
 NBA: sports_fan 
 Sarah Silverman: music_lover conservative liberal 
 NE-YO: music_lover conservative 
 Student Problems: music_lover conservative science_lover 
 Victoria Justice: music_lover gamer 
 AKON: music_lover 
-Ian Somerhalder: gamer music_lover 
+Ian Somerhalder: music_lover 
 AB de Villiers: gamer 
 Serena Williams: liberal music_lover sports_fan 
 EA SPORTS FIFA: gamer sports_fan 
@@ -512,9 +512,9 @@ Twitter: music_lover gamer sports_fan
 BuzzFeed: music_lover fashion_lover 
 Marc Jacobs: fashion_lover 
 Jamie Foxx: music_lover 
-Dan Howell: conservative gamer music_lover science_lover 
+Dan Howell: music_lover science_lover 
 Ice Cube: music_lover 
-Eddie Izzard: gamer conservative music_lover 
+Eddie Izzard: music_lover 
 Los Angeles Lakers: sports_fan 
 NatGeoTravel: science_lover art_lover food_lover 
 Dwight Howard: music_lover gamer sports_fan
@@ -530,12 +530,12 @@ United Nations: science_lover
 NHL: sports_fan 
 SportsCenter: sports_fan 
 Bruno Mars: music_lover 
-Enrique Gil: gamer music_lover 
+Enrique Gil: music_lover 
 Blake Shelton: music_lover 
 Calvin Harris: music_lover 
 Mac: music_lover 
 Justin Bieber: music_lover 
-James Harden: music_lover gamer 
+James Harden: music_lover 
 P!nk: music_lover 
 Department of State: conservative 
 LLCOOLJ.: music_lover 
@@ -556,6 +556,6 @@ Tyler Perry: music_lover
 Usher Raymond IV: music_lover 
 TED Talks: science_lover 
 Twitter Sports: sports_fan 
-Seth Rogen: music_lover gamer 
+Seth Rogen: music_lover 
 Miranda Cosgrove: gamer 
 Narendra Modi: conservative religious 
