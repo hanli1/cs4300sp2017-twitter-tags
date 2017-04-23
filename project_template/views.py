@@ -53,7 +53,13 @@ def search(request):
     results = [i for i in cossim if i[0] in set_of_users][:10]
   else:
     results = cossim[:10]
-  data = {"results": results}
+
+  # attach twitter handle for linking
+  name_handle_sim = []
+  for result in results:
+    twitter_handle = TwitterUser.objects.get(name=result[0]).twitter_handle
+    name_handle_sim.append((result[0], twitter_handle, result[1]))
+  data = {"results": name_handle_sim}
   return JsonResponse(data)
 
 

@@ -22,7 +22,13 @@ function send_search_query(){
     for(i = 0; i < results.length; i++){
       var listItem = $("<li class=\"list-group-item\"></li>");
       result = results[i]
-      var formattedItem = listItem.html(result[0] + " " + (result[1] * 100).toFixed(2) + "%");
+      var displayText = result[0] + " " + (result[2] * 100).toFixed(2) + "%";
+      var link = $("<a></a>");
+      link.attr("href", "https://twitter.com/" + result[1])
+      // open in new tab
+      link.attr("target", "_blank)")
+      link.html(displayText)
+      var formattedItem = listItem.html(link);
       listGroup.append(formattedItem);
     }
     if(results.length == 0){
