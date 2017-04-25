@@ -7,6 +7,9 @@ import os
 import csv
 import numpy as np
 import sys
+import boto3
+from StringIO import StringIO
+from django.conf import settings
 
 directory = os.path.dirname(__file__)
 processed_directory = os.path.join(directory, "../data/processed_tweets")
@@ -16,18 +19,21 @@ count_vec = CountVectorizer(max_df=0.8, min_df=10, stop_words='english')
 tfidf_vec = TfidfVectorizer(max_df=0.8, min_df=10, stop_words='english', norm='l2')
 
 user_to_tweets = {}
-index_to_user = user_to_index  = index_to_tweets = cos_sim_matrix = user_by_vocab_count = user_by_vocab_tfidf \
-    = features = english_users = None
+index_to_user = user_to_index  = index_to_tweets = user_by_vocab_count = user_by_vocab_tfidf \
+    = features = None
+
 
 # build user_to_tweets from csv files
 # set english_only to false if you want to consider all users
-def build_data(filename, english_only) :
+def build_data(filename):
     with open(os.path.join(processed_directory, filename), 'rb') as f:
       reader = csv.reader(f)
       for tweetid, user, tweet in reader:
-          if user == 'name' : continue
-          if english_only and user not in english_users : continue
-          if user not in user_to_tweets : user_to_tweets[user] = []
+          if user == 'name' :
+              continue
+          if user not in user_to_tweets :
+              print user
+              user_to_tweets[user] = []
           user_to_tweets[user].append(tweet)
 
 
@@ -93,53 +99,57 @@ def load_count_and_tfidf_matrix() :
         features = pickle.load(handle)
 
 # get all the similar accounts for a given user
-def get_similar_accounts(user) :
-    user_index = user_to_index[user]
+def get_similar_accounts(user, cos_sim_matrix, user_to_index_map, index_to_user_map) :
+    user_index = user_to_index_map[user]
     sim_vector = np.argsort(cos_sim_matrix[user_index])
-    return [(index_to_user[i], cos_sim_matrix[user_index][i]) for i in sim_vector if i != user_index][::-1]
+    return [(index_to_user_map[i], cos_sim_matrix[user_index][i]) for i in sim_vector if i != user_index][::-1]
 
-# gets all users who have mostly english tweets
-def get_english_users() :
-    with open(os.path.join(pickle_directory, 'user_language_map.pickle'), 'rb') as handle:
-        languageMapping = pickle.load(handle)
-    return [user for user, language in languageMapping.items() if language == 'en']
 
 def print_top_words(model, feature_names, n_top_words):
     for topic_idx, topic in enumerate(model.components_):
         print("Topic #%d:" % topic_idx)
         print(" ".join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]))
 
+
 def setup_and_run(user):
-  global cos_sim_matrix
+    if settings.DEBUG:
+        client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+        s3 = client.list_objects(
+            Bucket=settings.AWS_BUCKET
+        )
+        r1 = client.get_object(
+            Bucket=settings.AWS_BUCKET,
+            Key="cos_sim_matrix.npy"
+        )
+        data_string = StringIO(r1['Body'].read())
+        cos_sim_matrix = np.load(data_string)
+        r2 = client.get_object(
+            Bucket=settings.AWS_BUCKET,
+            Key="user_to_index.pickle"
+        )
+        user_to_index_map = pickle.loads(r2['Body'].read())
+        r3 = client.get_object(
+            Bucket=settings.AWS_BUCKET,
+            Key="index_to_user.pickle"
+        )
+        index_to_user_map = pickle.loads(r3['Body'].read())
+    else:
+        with open(os.path.join(pickle_directory, 'index_to_user.pickle'), 'rb') as handle:
+            index_to_user_map = pickle.load(handle)
+        with open(os.path.join(pickle_directory, 'user_to_index.pickle'), 'rb') as handle:
+            user_to_index_map = pickle.load(handle)
+        cos_sim_matrix = np.load(os.path.join(pickle_directory, 'user_to_index.pickle'))
+    return get_similar_accounts(user, cos_sim_matrix, user_to_index_map, index_to_user_map)
 
-  if not os.path.exists(os.path.join(pickle_directory, 'user_to_tweets.pickle')) :
-      for filename in os.listdir(processed_directory):
-          if filename.endswith(".csv") : build_data(filename, english_only)
-
-      # saves all relevant maps as pickle files for faster retrieval in subsequent runs
-      save_maps()
-
-      # save tf-idf matrix
-      save_count_and_tfidf_matrix()
-
-  load_maps()
-  load_count_and_tfidf_matrix()
-
-  # get cos_sim matrix
-  cos_sim_matrix = np.dot(user_by_vocab_tfidf, user_by_vocab_tfidf.T)
-  return get_similar_accounts(user)
 
 if __name__ == "__main__":
-    english_only = True
-    english_users = set(get_english_users())
-
-    try:
-        if sys.argv[1] == 'all': english_only = False
-    except Exception as e: pass
-
     if not os.path.exists(os.path.join(pickle_directory, 'user_to_tweets.pickle')) :
         for filename in os.listdir(processed_directory):
-            if filename.endswith(".csv") : build_data(filename, english_only)
+            if filename.endswith(".csv") : build_data(filename)
 
         # saves all relevant maps as pickle files for faster retrieval in subsequent runs
         save_maps()
@@ -153,11 +163,4 @@ if __name__ == "__main__":
     # get cos_sim matrix
     cos_sim_matrix = np.dot(user_by_vocab_tfidf, user_by_vocab_tfidf.T)
 
-    # print top 10 similar users
-    for user in ['Ariana Grande', 'Trey Songz', 'Zendaya', 'Hillary Clinton'] :
-        print get_similar_accounts(user)[:10]
-
-    # run topic modeling and fetch 30 topics
-    # lda_results = lda_model.fit_transform(user_by_vocab_count)
-
-    # print_top_words(lda_model, features, 30)
+    np.save(os.path.join(pickle_directory, 'cos_sim_matrix'), cos_sim_matrix)
