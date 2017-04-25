@@ -75,7 +75,23 @@ html {
 }
 #user-selection-input{
   border-width: 0px;
+  width: 300px;
 }
+
+@media (max-width: 700px) {
+  #user-selection-input{
+    width: 250px !important;
+  }
+  #user-type-selection-input {
+    width: 100px !important;
+  }
+}
+
+#user-type-selection-input {
+  width: 120px;
+  margin-right: 5px;
+}
+
 #user-selection-input:focus{
   outline: none;
   border-color: #9ecaed;

@@ -38,9 +38,18 @@ def index(request):
 def search(request):
   search = request.GET.get('user_query')
   tags = request.GET.getlist('tags[]')
+  user_type = request.GET.get("user_type")
   space_index = search.rfind(" ")
   name = search[:space_index]
   cossim = setup_and_run(name)
+  allowed_users = set()
+  if user_type:
+    if user_type == "People":
+      allowed_users = set(list(TwitterUser.objects.filter(user_type="person")))
+    elif user_type == "Organizations":
+      allowed_users = set(list(TwitterUser.objects.filter(user_type="organization")))
+    else:
+      allowed_users = set(TwitterUser.objects.all())
   if tags:
     user_tags= list(UserTag.objects.filter(tag__name=tags[0]))
     first_tag_people = set([user_tag.user.name for user_tag in user_tags])
@@ -55,13 +64,16 @@ def search(request):
       if user_obj["name"] in set_of_users:
         try:
           twitter_user = TwitterUser.objects.get(name=user_obj["name"])
-          results.append({
-            "twitter_handle": twitter_user.twitter_handle,
-            "profile_picture": twitter_user.profile_image,
-            "cosine_similarity": user_obj["cosine_similarity"],
-            "name": user_obj["name"],
-            "top_words_in_common": user_obj["top_words_in_common"]
-          })
+          if len(allowed_users) > 0 and twitter_user in allowed_users:
+            results.append({
+              "twitter_handle": twitter_user.twitter_handle,
+              "profile_picture": twitter_user.profile_image,
+              "cosine_similarity": user_obj["cosine_similarity"],
+              "name": user_obj["name"],
+              "top_words_in_common": user_obj["top_words_in_common"]
+            })
+            if len(results) >= 10:
+              break
         except TwitterUser.DoesNotExist:
           continue
         except Exception as e:
@@ -72,13 +84,16 @@ def search(request):
     for user_obj in cossim:
       try:
         twitter_user = TwitterUser.objects.get(name=user_obj["name"])
-        results.append({
-          "twitter_handle": twitter_user.twitter_handle,
-          "profile_picture": twitter_user.profile_image,
-          "cosine_similarity": user_obj["cosine_similarity"],
-          "name": user_obj["name"],
-          "top_words_in_common": user_obj["top_words_in_common"]
-        })
+        if len(allowed_users) > 0 and twitter_user in allowed_users:
+          results.append({
+            "twitter_handle": twitter_user.twitter_handle,
+            "profile_picture": twitter_user.profile_image,
+            "cosine_similarity": user_obj["cosine_similarity"],
+            "name": user_obj["name"],
+            "top_words_in_common": user_obj["top_words_in_common"]
+          })
+          if len(results) >= 10:
+            break
       except TwitterUser.DoesNotExist:
         continue
       except Exception as e:

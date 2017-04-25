@@ -11,7 +11,8 @@ function send_search_query(){
   // on search button click send query to django backend
   data = { 
       user_query: $("#user-selection-input").val(), 
-      tags: get_query_tags()
+      tags: get_query_tags(),
+      user_type: $("#user-type-selection-input").val()
   };
   $.get('/api/search', data, function(response){
     var results = response["results"];
