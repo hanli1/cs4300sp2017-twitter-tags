@@ -9,4 +9,5 @@ scripts/*.csv
 *.DS_Store
 .idea/
 mysite/localsettings.py
+.ipynb_checkpoints
 
