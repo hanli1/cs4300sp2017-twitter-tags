@@ -185,7 +185,7 @@ def tag_users(data, pred, pred_agg, idx_to_cat, cat_to_idx):
         users_tag_freq[row[1]] = freq
 
     threshold = 0.3
-    with open("trained_naive_bayes_model/user_tags_v3", 'w') as f:
+    with open("trained_naive_bayes_model/user_tags_v4", 'w') as f:
         i = 0
         for user, freq in users_tag_freq.items():
             user_output = str(user) + ": "
