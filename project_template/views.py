@@ -50,17 +50,41 @@ def search(request):
       user_tags = list(UserTag.objects.filter(tag__name=tag))
       people = set([user_tag.user.name for user_tag in user_tags])
       set_of_users = set_of_users.intersection(people)
-    results = [i for i in cossim if i[0] in set_of_users][:10]
+    results = []
+    for user_obj in cossim:
+      if user_obj["name"] in set_of_users:
+        try:
+          twitter_user = TwitterUser.objects.get(name=user_obj["name"])
+          results.append({
+            "twitter_handle": twitter_user.twitter_handle,
+            "profile_picture": twitter_user.profile_image,
+            "cosine_similarity": user_obj["cosine_similarity"],
+            "name": user_obj["name"],
+            "top_words_in_common": user_obj["top_words_in_common"]
+          })
+        except TwitterUser.DoesNotExist:
+          continue
+        except Exception as e:
+          continue
+    results = results[:10]
   else:
-    results = cossim[:10]
-
-  # attach twitter handle for linking
-  name_handle_sim = []
-  for result in results:
-    twitter_handle = TwitterUser.objects.get(name=result[0]).twitter_handle
-    name_handle_sim.append((result[0], twitter_handle, result[1]))
-  data = {"results": name_handle_sim}
-  return JsonResponse(data)
+    results = []
+    for user_obj in cossim:
+      try:
+        twitter_user = TwitterUser.objects.get(name=user_obj["name"])
+        results.append({
+          "twitter_handle": twitter_user.twitter_handle,
+          "profile_picture": twitter_user.profile_image,
+          "cosine_similarity": user_obj["cosine_similarity"],
+          "name": user_obj["name"],
+          "top_words_in_common": user_obj["top_words_in_common"]
+        })
+      except TwitterUser.DoesNotExist:
+        continue
+      except Exception as e:
+        continue
+    results = results[:10]
+  return JsonResponse({"results": results})
 
 
 def get_users_handles(request):
@@ -68,8 +92,7 @@ def get_users_handles(request):
   users = []
   for twitter_user in twitter_users:
     users.append({"value": twitter_user.name + " (@" + twitter_user.twitter_handle + ")"})
-  data = {"suggestions": users}
-  return JsonResponse(data)
+  return JsonResponse({"suggestions": users})
 
 
 def get_tag_labels(request):
