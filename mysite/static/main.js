@@ -12,30 +12,25 @@ function send_search_query(){
   data = { 
       user_query: $("#user-selection-input").val(), 
       tags: get_query_tags()
-  }
+  };
   $.get('/api/search', data, function(response){
     var results = response["results"];
-
-    $("#result").empty();
-    var listGroup = $("<ol class=\"list-group\"></ol>");
-
+    $("#results").empty();
     for(i = 0; i < results.length; i++){
-      var listItem = $("<li class=\"list-group-item\"></li>");
-      result = results[i]
-      var displayText = result[0] + " " + (result[2] * 100).toFixed(2) + "%";
-      var link = $("<a></a>");
-      link.attr("href", "https://twitter.com/" + result[1])
-      // open in new tab
-      link.attr("target", "_blank)")
-      link.html(displayText)
-      var formattedItem = listItem.html(link);
-      listGroup.append(formattedItem);
+        result = results[i];
+        var newUserResult = $(".user-result").eq(0).clone();
+        newUserResult.find(".user-image").attr("src", result.profile_picture);
+        newUserResult.find(".user-name").text(result.name);
+        newUserResult.find(".user-handle-link").text("@" + result.twitter_handle);
+        newUserResult.find(".user-handle-link").attr("href","https://twitter.com/" + result.twitter_handle);
+        newUserResult.find(".user-cosine-similarity").text((result.cosine_similarity * 100).toFixed(2) + "% similarity");
+        newUserResult.find(".user-common-words").text(result.top_words_in_common.join(", "));
+        newUserResult.css("display", "block");
+        $("#results").append(newUserResult);
     }
     if(results.length == 0){
-      var empty = listItem.html("No results found");
-      listGroup.append(empty);
+      $("#results").append('<div style="text-align: center">No results found</div>');
     }
-    $("#result").append(listGroup);
   });
 }
 

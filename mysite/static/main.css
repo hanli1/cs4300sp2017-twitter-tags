@@ -24,7 +24,7 @@ html {
   background-position: 0px 0px;
   background-repeat: repeat-x;
   /*animation: animatedBackground 10s linear infinite;*/
-
+  background-size: 100% 100%;
   }
   .global-search {
   text-align:center;
@@ -165,4 +165,40 @@ ol li.list-group-item {
   text-align: center;
   display: none;
   font-size: 15px;
+}
+
+.user-result {
+  display: none;
+  height: 100px;
+  width: 100%;
+  margin-bottom: 10px;
+  border:1px solid black;
+  background-color: #F5F5F5;
+}
+
+.user-image {
+  height: 100px;
+  width: 100%;
+}
+
+.user-image-wrapper {
+  width: 20%;
+  height: auto;
+  display: block;
+  float: left;
+  overflow: auto;
+}
+
+.user-info-wrapper {
+  width: 78%;
+  height: 100%;
+  display: block;
+  float: left;
+  padding: 15px;
+}
+
+
+.user-name {
+  font-weight: bold;
+  font-size: 14px;
 }
