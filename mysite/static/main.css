@@ -194,7 +194,8 @@ ol li.list-group-item {
 
 .user-image {
   height: 100px;
-  width: 100%;
+  width: auto;
+  clip:rect(0px, 100px, 100px, 0px);
 }
 
 .user-image-wrapper {
@@ -202,7 +203,7 @@ ol li.list-group-item {
   height: auto;
   display: block;
   float: left;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .user-info-wrapper {

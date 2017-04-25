@@ -38,6 +38,7 @@ def populate():
         items = row.split(": ")
         name = items[0].encode('utf-8')
         user_info = user_to_info_dict[name]
+        user_info[2] = user_info[2].replace("_normal", "")
         if unicode(user_info[1]) in people_users:
           twitter_user = TwitterUser.objects.get_or_create(
               twitter_handle=unicode(user_info[0]),
