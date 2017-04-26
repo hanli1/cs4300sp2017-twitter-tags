@@ -20,11 +20,11 @@ html {
   background: -webkit-linear-gradient(bottom, #09f, #45d1ff);*/
 
   background-image: url("clouds.jpg");
+  background-color: #8ED3F0;
   /*background-size: 100% 100%;*/
   background-position: 0px 0px;
   background-repeat: repeat-x;
   /*animation: animatedBackground 10s linear infinite;*/
-  background-size: 100% 100%;
   }
   .global-search {
   text-align:center;
