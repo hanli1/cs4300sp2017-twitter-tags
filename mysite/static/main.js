@@ -89,8 +89,9 @@ $.getJSON('/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
     tag_labels = data["suggestions"];
     $('#tag-selection-input').autocomplete({
       lookup: tag_labels,
-      lookupLimit: 5,
+      lookupLimit: 20,
       autoSelectFirst: true,
+      minChars: 0,
       onSelect: function (suggestion) {
         var value = suggestion.value;
         var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
