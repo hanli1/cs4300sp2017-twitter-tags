@@ -70,8 +70,8 @@ html {
 #title {
   color: white;
   font-size: 55px;
-  font: sans-serif;
   text-align: center;
+  font-weight: 100;
 }
 #user-selection-input{
   border-width: 0px;
@@ -115,6 +115,7 @@ html {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
+  font-family: 'Raleway', sans-serif;
 }
 input::-webkit-input-placeholder {
   transition: color 0.25s ease;
