@@ -19,7 +19,7 @@ function send_search_query(){
     $("#results").empty();
     for(i = 0; i < results.length; i++){
         result = results[i];
-        var newUserResult = $(".user-result").eq(0).clone();
+        var newUserResult = $("#user-result-template").eq(0).clone();
         newUserResult.find(".user-image").attr("src", result.profile_picture);
         newUserResult.find(".user-name").text(result.name);
         newUserResult.find(".user-handle-link").text("@" + result.twitter_handle);
@@ -76,7 +76,7 @@ $.getJSON('/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
               }
               user_tags_str = user_tags_str.substring(0, user_tags_str.length - 2);
               $("#user_tags").text(user_tags_str);
-              $("#user_information_wrapper").show();
+              // $("#user_information_wrapper").show();
           });
       }
     });

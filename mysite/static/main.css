@@ -180,9 +180,11 @@ ol li.list-group-item {
 
 #user_information_wrapper {
   margin-top: 10px;
-  text-align: center;
-  display: none;
+  /*display: none;*/
   font-size: 15px;
+  background: white;
+  max-width: 400px;
+  z-index: 5;
 }
 
 .user-result {
@@ -201,7 +203,7 @@ ol li.list-group-item {
 }
 
 .user-image-wrapper {
-  width: 20%;
+  width: 100px;
   height: auto;
   display: block;
   float: left;

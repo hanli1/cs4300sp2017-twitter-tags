@@ -41,21 +41,30 @@
         Twitter Similarity
       </h1>
     </div>
+    <br>
     <div class="row">
-      <div class="col-centered" id="user_information_wrapper">
-        <div id="user_name_and_handle_wrapper">
-          <span id="user_name"></span>
-          <span id="user_handle_wrapper">
-            <a target="_blank" id="user_handle" href=""></a>
-          </span>
-        </div>
-        <div id="user_profile_picture_wrapper">
-          <img height="150" width="150" id="user_profile_picture" src="">
-        </div>
-        <div id="user_tags_wrapper">
-          User's Tags: <span id="user_tags"></span>
+      <div class="col-md-6 offset-md-3 col-centered">
+        <div class="user-result" id="user-result" style="display: block;">
+          <div class="user-image-wrapper">
+            {% load staticfiles %}
+            <img class="user-image" id="user_profile_picture" src="{% static "placeholder.png" %}">
+          </div>
+          <div class="user-info-wrapper">
+            <div class="user-name-and-handle-wrapper">
+                <span id="user_name" class="user-name">&nbsp</span>
+                <span id="user_handle_wrapper">
+                  <a target="_blank" id="user_handle" href=""></a>
+                </span>
+            </div>
+            
+            <div id="user_tags_wrapper">
+              Tags: <span id="user_tags"></span>
+            </div>
+          </div>
+          
         </div>
       </div>
+      
     </div>
     <div class="row">
       <div class="form-inline global-search" method='GET'>
@@ -77,7 +86,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="user-result">
+      <div id="user-result-template" class="user-result">
           <div class="user-image-wrapper">
               <img class="user-image" src="">
           </div>
