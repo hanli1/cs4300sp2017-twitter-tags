@@ -4,6 +4,12 @@ Liberal:
 @BarackObama
 @HillaryClinton
 @SenWarren ‏
+@ezraklein
+@LiterateLiberal
+@AlaskaDemocrats
+@texasdemocrats
+@iahousedemocrat
+@OkDemocrats
 
 Conservative:
 @GOP
@@ -11,6 +17,10 @@ Conservative:
 @HouseGOP
 @SarahPalinUSA
 @tedcruz
+@FoxNews
+@JimDeMint
+@marklevinshow
+@CR
 
 Sports Fan:
 @espn
@@ -18,6 +28,10 @@ Sports Fan:
 @TwitterSports
 @SInow ‏
 @FOXSports
+@SportsNation
+@CBSSports
+@USATODAYsports
+@latimessports
 
 Fashion Lover:
 @TimesFashion
@@ -25,6 +39,9 @@ Fashion Lover:
 @voguemagazine
 @NYTFashion
 @FashionWeek
+@Fashionista_com
+@wwd
+@AP_Fashion
 
 Food Lover:
 @TwitterFood
@@ -32,6 +49,9 @@ Food Lover:
 @nytfood
 @latimesfood
 @PBSFood
+@seriouseats
+@SpoonUniversity
+@tastemade
 
 Music Lover:
 @pitchfork
@@ -65,12 +85,18 @@ Religious:
 @ReligionReport
 @ABCReligion
 @HuffPostRelig
+@padrealberto
+@RickWarren
+@thichnhathanh
 
 Art Lover:
 @SaatchiArt
 @artsy
 @artdotcom
 @ArtMonthly
+@FastCoDesign
+@Tate
+@ArtReview_
 
 Science Lover:
 @NASA
@@ -80,3 +106,5 @@ Science Lover:
 @WIREDScience
 @ScienceNews
 @PopSci
+@scicurious
+@science

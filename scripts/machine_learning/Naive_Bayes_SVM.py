@@ -51,52 +51,6 @@ def train_data(data):
     print "Performing 10-fold Cross Validation" 
     kf = KFold(len(tweets), n_folds = 10, shuffle=True)    
 
-    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = None)
-
-    accuracy = []
-    for train_idx, test_idx in kf:
-        X_train = vectorizer.fit_transform(tweets[train_idx])
-        X_test = vectorizer.transform(tweets[test_idx])
-          
-        nb = MultinomialNB()
-        nb.fit(X_train, y[train_idx])
-
-        pred_nb = nb.predict(X_test)
-        pred_nb_prob = nb.predict_proba(X_test)
-                        
-        pred = pred_nb
-        pred_prob = pred_nb_prob
-                
-        accuracy.append(np.mean(pred == np.array(y[test_idx])))
-        print "."
-
-    print ""
-    print "Avg Accuracy: " + str(np.mean(accuracy))
-    print accuracy
-
-    #Creating Full Model
-    X = vectorizer.fit_transform(tweets)
-
-    nb = MultinomialNB()
-    nb.fit(X, y)
-
-    with open("trained_naive_bayes_model/trained_model_v2", 'w') as f:
-        pickle.dump(nb, f)
-
-    with open('pickles/vectorizer', 'w') as f:
-        pickle.dump(vectorizer, f)
-
-def train_agg_data(data):
-    """
-    Perform K-Fold cross validation and create full model
-    """
-    tweets = np.array(data['Tweets'])
-
-    y = np.array(data["CATEGORY"])
-
-    print "Performing 10-fold Cross Validation" 
-    kf = KFold(len(tweets), n_folds = 10, shuffle=True)    
-
     vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english')
 
     accuracy = []
@@ -126,10 +80,56 @@ def train_agg_data(data):
     nb = MultinomialNB()
     nb.fit(X, y)
 
-    with open("trained_naive_bayes_model/trained_agg_model_v2", 'w') as f:
+    with open("trained_naive_bayes_model/trained_model_min_max", 'w') as f:
         pickle.dump(nb, f)
 
-    with open('pickles/vectorizer_agg', 'w') as f:
+    with open('pickles/vectorizer_min_max', 'w') as f:
+        pickle.dump(vectorizer, f)
+
+def train_agg_data(data):
+    """
+    Perform K-Fold cross validation and create full model
+    """
+    tweets = np.array(data['Tweets'])
+
+    y = np.array(data["CATEGORY"])
+
+    print "Performing 10-fold Cross Validation" 
+    kf = KFold(len(tweets), n_folds = 10, shuffle=True)    
+
+    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = None, max_df=0.8, min_df=10)
+
+    accuracy = []
+    for train_idx, test_idx in kf:
+        X_train = vectorizer.fit_transform(tweets[train_idx])
+        X_test = vectorizer.transform(tweets[test_idx])
+          
+        nb = MultinomialNB()
+        nb.fit(X_train, y[train_idx])
+
+        pred_nb = nb.predict(X_test)
+        pred_nb_prob = nb.predict_proba(X_test)
+                        
+        pred = pred_nb
+        pred_prob = pred_nb_prob
+                
+        accuracy.append(np.mean(pred == np.array(y[test_idx])))
+        print "."
+
+    print ""
+    print "Avg Accuracy: " + str(np.mean(accuracy))
+    print accuracy
+
+    #Creating Full Model
+    X = vectorizer.fit_transform(tweets)
+
+    nb = MultinomialNB()
+    nb.fit(X, y)
+
+    with open("trained_naive_bayes_model/trained_agg_model_min_max", 'w') as f:
+        pickle.dump(nb, f)
+
+    with open('pickles/vectorizer_agg_min_max', 'w') as f:
         pickle.dump(vectorizer, f)
 
 def test_data(data):
@@ -138,10 +138,10 @@ def test_data(data):
     """
     tweets = np.array(data[2].values.astype('U'))
 
-    with open("trained_naive_bayes_model/trained_model_v2", 'r') as f:
+    with open("trained_naive_bayes_model/trained_model_min_max", 'r') as f:
         nb = pickle.load(f)
 
-    with open('pickles/vectorizer', 'r') as f:
+    with open('pickles/vectorizer_min_max', 'r') as f:
         vectorizer = pickle.load(f)
     
     #Creating a index to category and category to index mapping 
@@ -162,10 +162,10 @@ def test_agg_data(data):
     """
     tweets = np.array(data['Tweets'].values.astype('U'))
 
-    with open("trained_naive_bayes_model/trained_agg_model_v2", 'r') as f:
+    with open("trained_naive_bayes_model/trained_agg_model_min_max", 'r') as f:
         nb = pickle.load(f)
 
-    with open('pickles/vectorizer_agg', 'r') as f:
+    with open('pickles/vectorizer_agg_min_max', 'r') as f:
         vectorizer = pickle.load(f)
     
     X = vectorizer.transform(tweets)
@@ -185,7 +185,7 @@ def tag_users(data, pred, pred_agg, idx_to_cat, cat_to_idx):
         users_tag_freq[row[1]] = freq
 
     threshold = 0.3
-    with open("trained_naive_bayes_model/user_tags_v4", 'w') as f:
+    with open("trained_naive_bayes_model/user_tags_min_max", 'w') as f:
         i = 0
         for user, freq in users_tag_freq.items():
             user_output = str(user) + ": "

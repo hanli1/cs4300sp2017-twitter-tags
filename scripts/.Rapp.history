@@ -1,0 +1,295 @@
+HDD = 7000000
+PF = 0.00001
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + (1-PF)*DRAM + PF*HDD) + (CACHE + CACHEMiss*DRAM))
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + (1-PF)*DRAM + PF(SSD + 0.1*HDD)) + (CACHE + CACHEMiss*DRAM))
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + (1-PF)*DRAM + PF*(SSD + 0.1*HDD)) + TLB + (CACHE + CACHEMiss*DRAM))
+SSD = 0
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + (1-PF)*DRAM + PF*(SSD + 0.1*HDD)) + TLB + (CACHE + CACHEMiss*DRAM))
+TLB = 0
+TLBMiss = 0
+CACHE = 0
+CACHEMiss = 0
+DRAM = 0
+TLBMiss = 0.01
+CACHE = 1
+TLB = 1
+CACHEMiss = 0.01
+DRAM = 130
+PF = 0.00001
+HDD = 7000000
+SSD = 13000
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + (1-PF)*DRAM + PF*(SSD + 0.1*HDD)) + TLB + (CACHE + CACHEMiss*DRAM))
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + PF*(SSD + 0.1*HDD)) + TLB + (CACHE + CACHEMiss*DRAM))
+TLB = 1
+CACHEMiss = 0.01
+CACHE = 1
+CACHEMiss = 0
+TLBMiss = 0.01
+TLB = 1
+CACHE = 1
+TLBMiss = 0.01
+CACHEMiss = 0.01
+DRAM = 130
+PF = 0.00002
+HDD = 14000000
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + PF*HDD) + (CACHE + CACHEMiss*DRAM))
+PF = 0.00001
+HDD = 7000000
+SSD = 13000
+TLB + (1 - TLBMiss)*(CACHE + CACHEMiss*DRAM) + TLBMiss*((2*DRAM + PF*(SSD + 0.1*HDD)) + TLB + (CACHE + CACHEMiss*DRAM))
+pnorm(10, 40/3, 10/9)
+pnorm(-3.1624)
+qnorm(0.025/2)
+qnorm(0.025/2)/25
+choose(4, 2)
+choose(40,20)
+for (i in 0:10) {}
+for (i in 0:10) { print(i) }
+for (i in 0:10) {
+}
+for (i in 0:12) {
+}
+errors_ridge = rep(0, 12)
+X = rep(0, 12)
+X
+errors_ridge = rep(0, 13)
+X = rep(0, 13)
+X[0]
+X[c(0)]
+Y = X
+Y
+y[2] = 1
+Y[2] = 1
+Y
+X
+Y[2]
+Y[1]
+Y[0]
+for (i in 0:12) {
+X[i+1] = (choose(40, 20 - i)*choose(12,i))/choose(52, 20)
+}
+X
+choose(40,19)*choose(12,1)
+(choose(40,19)*choose(12,1))/choose(52,20)
+X
+for (i in 0:12) {
+X[i+1] = (choose(40, 20 - i)*choose(12,i))/choose(52, 20)
+X[i+1] = X[i+1]*i
+}
+X
+sum(X)
+20/50
+0.4*12
+X^2
+X
+sum(X^2 - 4.615385^2)
+sum((X - 4.615385)^2)
+.12
+238/12
+12/52*12
+12/52*20
+12/52
+0.2307692*20
+sum((12/52 - 4.615384)^2
+)
+(12/52 - 4.615384)^2
+19.22485*12
+19.22485*20
+(19.22485*20)/19
+20.23668/20 - 20.23668/52
+20^2
+400*0.6226671
+sqrt(249.0668)
+x = 1 - 20/52
+(20.23668/52) - x
+(20.23668/52)*x
+x =20.23668/52
+y = 1 - (20/52)
+x*y
+(20.23668/20) - 20.23668/52
+?llh
+??llh
+library(data.table)#
+data("movie_review")
+?data.table
+install.packages("data.table")
+?data.table
+library(data.table)#
+data("movie_review")
+ibrary(data.table)
+library(data.table)
+data("movie_review")
+install.packages("text2vec")
+data('movie_review')
+library(text2vec)
+data('movie_review')
+head(movie_review)
+movie_review[0]
+movie_review(0)
+movie_review[0]
+movie_review[1]]
+movie_review[1]
+movie_review[,1]
+movie_review[1][1]
+library(readr)
+tweets <- read_csv("processed_tweets.csv")
+tweets <- read.csv("processed_tweets.csv")
+t = tweets[0:10,]
+head(t)
+str(t)
+t
+test = ddply(t, “Var1”, summarize, newCol = paste(text, collapse = " "))
+tweets_user = as.data.frame(name = name, text = text)
+tweets_user = as.data.frame(name = tweets$name, text = tweets$text)
+tweets_user = as.data.frame(name = tweets$name)
+tweets_user = data.frame(name = tweets$name)
+tweets_user = data.frame(name = tweets$name, text = tweets$text)
+head(tweets_user)
+t = tweets[0:10,]
+t = tweets_user[0:10,]
+ht
+t
+test = ddply(t, “Var1”, summarize, newCol = paste(text, collapse = " "))
+test = ddply(t, “name”, summarize, newCol = paste(text, collapse = " "))
+test = ddply(t, "name", summarize, newCol = paste(text, collapse = " "))
+library(plyr)
+test = ddply(t, "name", summarize, newCol = paste(text, collapse = " "))
+test
+t = rbind(tweets_user[0:10,], tweets_user[9000:9004])
+t = rbind(tweets_user[0:10,], tweets_user[9000:9004,])
+t
+test = ddply(t, "name", summarize, newCol = paste(text, collapse = " "))
+test
+t = tweets_user[0:5000,]
+test = ddply(t, "name", summarize, newCol = paste(text, collapse = " "))
+test
+tweets_aggregated = ddply(tweets_user, "name", summarize, newCol = paste(text, collapse = " "))
+head(tweets_aggregated, 2)
+str(tweets_aggregated)
+head(tweets_user)
+tweets_aggregated = ddply(tweets_user, "name", summarize, tweets = paste(text, collapse = " "))
+library(text2vec)
+prep_fun = tolower#
+tok_fun = word_tokenizer
+data("movie_review")
+head(movie_review)
+head(movie_review$review)
+head(movie_review$review, 1)
+head(movie_review, 1)
+tweets_aggregated$Id
+id <- rownames(tweets_aggregated)
+id
+tweets_aggregated <- cbind(id=id, tweets_aggregated)
+head(tweets_aggregated,1)
+it_train = itoken(tweets_aggregated$tweets, #
+             preprocessor = prep_fun, #
+             tokenizer = tok_fun, #
+             ids = id, #
+             progressbar = FALSE)
+vocab = create_vocabulary(it_train)
+vocab
+pruned_vocab = prune_vocabulary(vocab, #
+                                 term_count_min = 10, #
+                                 doc_proportion_max = 0.5,#
+                                 doc_proportion_min = 0.001)
+pruned_vocab
+?prune_vocabulary
+pruned_vocab = prune_vocabulary(vocab, #
+                                 term_count_min = 10, #
+                                 doc_proportion_max = 0.5,#
+                                 doc_proportion_min = 0.01)
+pruned_vocab
+pruned_vocab = prune_vocabulary(vocab, #
+                                 term_count_min = 10, #
+                                 doc_proportion_max = 0.5,#
+                                 doc_proportion_min = 0.05)
+pruned_vocab
+pruned_vocab = prune_vocabulary(vocab, #
+                                 term_count_min = 10, #
+                                 doc_proportion_max = 0.5,#
+                                 doc_proportion_min = 0.02)
+pruned_vocab
+pruned_vocab = prune_vocabulary(vocab, #
+                                 term_count_min = 10, #
+                                 doc_proportion_max = 0.5,#
+                                 doc_proportion_min = 0.025)
+pruned_vocab
+vectorizer = vocab_vectorizer(vocab)#
+dtm_train = create_dtm(it_train, vectorizer)
+tfidf = TfIdf$new()
+dtm_train_tfidf = fit_transform(dtm_train, tfidf)
+head(dtm_train_tfidf)
+head(dtm_train)
+str(dtm_train)
+vectorizer = vocab_vectorizer(pruned_vocab)#
+dtm_train = create_dtm(it_train, vectorizer)
+str(dtm_train)
+dtm_train_tfidf = fit_transform(dtm_train, tfidf)
+str(dtm_train_tfidf)
+x = sort(dtm_train_tfidf)
+str(x)
+head(dtm_train_tfidf$x)
+TermDocumentMatrix
+all_tweets = paste(tweets_aggregated$tweets, collapse = " ")
+nchar(all_tweets)
+all_tweets = strsplit(all_tweets, "<<[^>]*>>")[[1]]
+length(all_tweets)
+all_tweets = strsplit(all_tweets, "<<[^>]*>>")[[1]]
+all_tweets = paste(tweets_aggregated$tweets, collapse = " ")
+install.packages("tm")
+library(tm)
+library(ggplot2)
+?TermDocumentMatrix
+tdm = TermDocumentMatrix(tweets_aggregated$tweets, control = list(weighting=weightTfIdf, stopwords = TRUE, removePunctuation = T, removeNumbers = T, stemming = T))
+?Corpus
+corpus = Corpus(tweets_aggregated$tweets)
+?Corpus
+?TermDocumentMatrix
+?Corpus
+corpus = Corpus(all_tweets)
+?TermDocumentMatrix
+str(dtm_train_tfidf)
+freq=rowSums(as.matrix(dtm_train_tfidf))
+head(freq,10)
+freq=colSums(as.matrix(dtm_train_tfidf))
+head(freq,10)
+plot(sort(freq, decreasing = T),col="blue",main="Word TF-IDF frequencies", xlab="TF-IDF-based rank", ylab = "TF-IDF")
+tail(sort(freq),n=10)
+pruned_vocab
+tail(freq,10)
+high.freq=tail(sort(freq),n=10)#
+hfp.df=as.data.frame(sort(high.freq))#
+hfp.df$names <- rownames(hfp.df)
+ggplot(hfp.df, aes(reorder(names,high.freq), high.freq)) +#
+  geom_bar(stat="identity") + coord_flip() + #
+  xlab("Terms") + ylab("Frequency") +#
+  ggtitle("Term frequencies")
+high.freq=tail(sort(freq),n=11)[1:10]#
+hfp.df=as.data.frame(sort(high.freq))#
+hfp.df$names <- rownames(hfp.df)
+hfp.df
+high.freq=tail(sort(freq),n=21)[1:20]#
+hfp.df=as.data.frame(sort(high.freq))#
+hfp.df$names <- rownames(hfp.df)
+hfp.df
+ggplot(hfp.df, aes(reorder(names,high.freq), high.freq)) +#
+  geom_bar(stat="identity") + coord_flip() + #
+  xlab("Terms") + ylab("Frequency") +#
+  ggtitle("Term frequencies")
+ggplot(hfp.df, aes(reorder(names,high.freq), high.freq)) +#
+  geom_bar(stat="identity", fill="#53cfff") + + coord_flip() + #
+  xlab("Terms") + ylab("Frequency") +#
+  ggtitle("Term frequencies") +
+D
+ggplot(hfp.df, aes(reorder(names,high.freq), high.freq)) +#
+  geom_bar(stat="identity", fill="#53cfff") + coord_flip() + #
+  xlab("Terms") + ylab("Frequency") +#
+  ggtitle("Term frequencies") +
+()
+ggplot(hfp.df, aes(reorder(names,high.freq), high.freq)) +#
+  geom_bar(stat="identity", fill="#53cfff") + coord_flip() + #
+  xlab("Terms") + ylab("Frequency") +#
+  ggtitle("Term frequencies")
+hist(table(tweets))
+hist(table(tweets$name))
+hist(table(tweets$name[tweets$name != "FC Barcelona"]))
