@@ -51,7 +51,7 @@ def train_data(data):
     print "Performing 10-fold Cross Validation" 
     kf = KFold(len(tweets), n_folds = 10, shuffle=True)    
 
-    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english', max_df=0.9, min_df = 10)
+    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english')
 
     accuracy = []
     for train_idx, test_idx in kf:
