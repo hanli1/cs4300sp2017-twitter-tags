@@ -70,7 +70,9 @@
       <div class="form-inline global-search" method='GET'>
         <div class="form-group">
           <input id="user-selection-input" type="text" name="search" class="form-control glowing-border" placeholder="Your Input">
-          <input id="tag-selection-input" type="text" class="form-control glowing-border" placeholder="Tags">
+          <div id="tag-selection-dropdown" tabindex="100">
+            <div class="tag-selection-row" id="tag-selection-placeholder">Tags</div>
+          </div>
           <select class="form-control" id="user-type-selection-input">
             <option value="All Users" selected="selected">All Users</option>
             <option value="People">People</option>
