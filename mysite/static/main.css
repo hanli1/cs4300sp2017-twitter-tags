@@ -1,3 +1,13 @@
+/* gets rid of bootstrap's rounded border on every element */
+* {
+  border-radius: 0 !important;
+  outline: none;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  font-family: 'Raleway', sans-serif;
+}
 html {
   position: relative;
   min-height: 100%;
@@ -49,30 +59,34 @@ html {
   height: 34px;
   width: 80px;
   margin-left: -3px; 
-  background-color: #1dcaff;
+  background-color: #00b4ff;
+  border: 2px solid white !important;
+  /*outline: solid !important;*/
   color: white;
-  transition: all 0.3s ease 0s;
+  transition: all 0.25s ease 0s;
+  text-align: center;
 }
 .btn:hover{
   height: 34px;
   width: 80px;
-  margin-left: -4px;
-  background-color: #00aced;
+  background-color: white;
+  color: #00b4ff;
 }
-.btn:active{
+.btn:hover{
   height: 34px;
   width: 80px;
-  margin-left: -4px;
-  background-color: #0084b4;
+  background-color: white;
+  color: #00b4ff;
 }
 .step-links a{
   color: #4285F4;
 }
 #title {
   color: white;
-  font-size: 55px;
+  font-size: 6em;
   text-align: center;
   font-weight: 100;
+  margin-top: 100px;
 }
 #user-selection-input{
   border-width: 0px;
@@ -108,16 +122,7 @@ html {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-/* gets rid of bootstrap's rounded border on every element */
-* {
-  border-radius: 0 !important;
-  outline: none;
-  border: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
-  font-family: 'Raleway', sans-serif;
-}
+
 input::-webkit-input-placeholder {
   transition: all 0.5s ease;
   color: gray;
@@ -434,4 +439,9 @@ ol li.list-group-item {
 .dropdown-buttons:hover{
   background: #F0F0F0;
   transition: all 0.25s ease;
+}
+.shadow{
+  -webkit-box-shadow: 0px 2px 6px -1px rgba(0,0,0,0.75) !important;
+  -moz-box-shadow: 0px 2px 6px -1px rgba(0,0,0,0.75) !important;
+  box-shadow: 0px 2px 6px -1px rgba(0,0,0,0.75) !important;
 }

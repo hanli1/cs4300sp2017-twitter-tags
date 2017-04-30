@@ -40,6 +40,7 @@ $( document ).ready(function() {
   }
 
   function send_search_query(){
+    $("#search-button").blur();
     // on search button click send query to django backend
     data = { 
         user_query: $("#user-selection-input").val(), 
@@ -163,6 +164,7 @@ $( document ).ready(function() {
       chip.addClass("chip-negative");
       chip.attr("tag", "negative");
     }
+    chip.addClass("shadow");
     chip.appendTo($("#tags-container")).fadeIn(200);
     // $("#tag-selection-input").val("");
   }
