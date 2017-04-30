@@ -80,10 +80,10 @@ def train_data(data):
     nb = MultinomialNB()
     nb.fit(X, y)
 
-    with open("trained_naive_bayes_model/trained_model_min_max", 'w') as f:
+    with open("trained_naive_bayes_model/trained_model_new", 'w') as f:
         pickle.dump(nb, f)
 
-    with open('pickles/vectorizer_min_max', 'w') as f:
+    with open('pickles/vectorizer_new', 'w') as f:
         pickle.dump(vectorizer, f)
 
 def train_agg_data(data):
@@ -126,10 +126,10 @@ def train_agg_data(data):
     nb = MultinomialNB()
     nb.fit(X, y)
 
-    with open("trained_naive_bayes_model/trained_agg_model_min_max", 'w') as f:
+    with open("trained_naive_bayes_model/trained_agg_model_new", 'w') as f:
         pickle.dump(nb, f)
 
-    with open('pickles/vectorizer_agg_min_max', 'w') as f:
+    with open('pickles/vectorizer_agg_new', 'w') as f:
         pickle.dump(vectorizer, f)
 
 def test_data(data):
@@ -138,10 +138,10 @@ def test_data(data):
     """
     tweets = np.array(data[2].values.astype('U'))
 
-    with open("trained_naive_bayes_model/trained_model_min_max", 'r') as f:
+    with open("trained_naive_bayes_model/trained_model_new", 'r') as f:
         nb = pickle.load(f)
 
-    with open('pickles/vectorizer_min_max', 'r') as f:
+    with open('pickles/vectorizer_new', 'r') as f:
         vectorizer = pickle.load(f)
     
     #Creating a index to category and category to index mapping 
@@ -162,10 +162,10 @@ def test_agg_data(data):
     """
     tweets = np.array(data['Tweets'].values.astype('U'))
 
-    with open("trained_naive_bayes_model/trained_agg_model_min_max", 'r') as f:
+    with open("trained_naive_bayes_model/trained_agg_model_new", 'r') as f:
         nb = pickle.load(f)
 
-    with open('pickles/vectorizer_agg_min_max', 'r') as f:
+    with open('pickles/vectorizer_agg_new', 'r') as f:
         vectorizer = pickle.load(f)
     
     X = vectorizer.transform(tweets)
@@ -185,7 +185,7 @@ def tag_users(data, pred, pred_agg, idx_to_cat, cat_to_idx):
         users_tag_freq[row[1]] = freq
 
     threshold = 0.3
-    with open("trained_naive_bayes_model/user_tags_min_max", 'w') as f:
+    with open("trained_naive_bayes_model/user_tags_new", 'w') as f:
         i = 0
         for user, freq in users_tag_freq.items():
             user_output = str(user) + ": "
