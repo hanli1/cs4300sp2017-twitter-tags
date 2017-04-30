@@ -1,37 +1,81 @@
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <link rel="stylesheet" href="/static/bootstrap.min.css">
   <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
+  <div id="background-wrap">
+        <div class="x1">
+            <div class="cloud"></div>
+        </div>
+
+        <div class="x2">
+            <div class="cloud"></div>
+        </div>
+
+        <div class="x3">
+            <div class="cloud"></div>
+        </div>
+
+        <div class="x4">
+            <div class="cloud"></div>
+        </div>
+
+        <div class="x5">
+            <div class="cloud"></div>
+        </div>
+  </div>
   <div class="container">
+
+    <div class="row">
+        <div id="other-protoypes-wrapper">
+            <a href="http://twittersimilarity.herokuapp.com">
+                <button id="prototype-1-button" type="button" class="btn btn-primary">Visit Prototype 1</button>
+            </a>
+        </div>
+    </div>
     <div class="row">
       <h1 class="col-centered" id="title">
         Twitter Similarity
       </h1>
     </div>
+    <br>
     <div class="row">
-      <div class="col-centered" id="user_information_wrapper">
-        <div id="user_name_and_handle_wrapper">
-          <span id="user_name"></span>
-          <span id="user_handle_wrapper">
-            <a target="_blank" id="user_handle" href=""></a>
-          </span>
-        </div>
-        <div id="user_profile_picture_wrapper">
-          <img height="150" width="150" id="user_profile_picture" src="">
-        </div>
-        <div id="user_tags_wrapper">
-          User's Tags: <span id="user_tags"></span>
+      <div class="col-md-6 offset-md-3 col-centered">
+        <div class="user-result" id="user-result" style="display: block;">
+          <div class="user-image-wrapper">
+            {% load staticfiles %}
+            <img class="user-image" id="user_profile_picture" src="{% static "placeholder.png" %}">
+          </div>
+          <div class="user-info-wrapper">
+            <div class="user-name-and-handle-wrapper">
+                <span id="user_name" class="user-name">&nbsp</span>
+                <span id="user_handle_wrapper">
+                  <a target="_blank" id="user_handle" href=""></a>
+                </span>
+            </div>
+            
+            <div id="user_tags_wrapper">
+              Tags: <span id="user_tags"></span>
+            </div>
+          </div>
+          
         </div>
       </div>
+      
     </div>
     <div class="row">
       <div class="form-inline global-search" method='GET'>
         <div class="form-group">
           <input id="user-selection-input" type="text" name="search" class="form-control glowing-border" placeholder="Your Input">
           <input id="tag-selection-input" type="text" class="form-control glowing-border" placeholder="Tags">
+          <select class="form-control" id="user-type-selection-input">
+            <option value="All Users" selected="selected">All Users</option>
+            <option value="People">People</option>
+            <option value="Organizations">Organizations</option>
+          </select>
         </div>
         <button id="search-button" class="btn btn-info">Search</button>
       </div>
@@ -42,7 +86,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8 offset-md-2 col-centered" id="result">
+      <div id="user-result-template" class="user-result">
+          <div class="user-image-wrapper">
+              <img class="user-image" src="">
+          </div>
+          <div class="user-info-wrapper">
+              <div class="user-name-and-handle-wrapper">
+                  <span class="user-name"></span>
+                  <span class="user-handle">
+                    (<a class="user-handle-link" target="_blank" href=""></a>)
+                  </span>
+              </div>
+              <div class="user-cosine-similarity"></div>
+              <div class="user-common-words-wrapper">
+                  Top Words (Stemmed) in Common: <span class="user-common-words"></span>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-8 offset-md-2 col-centered" id="results">
+
       </div>
     </div>
    

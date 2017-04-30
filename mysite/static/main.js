@@ -11,31 +11,27 @@ function send_search_query(){
   // on search button click send query to django backend
   data = { 
       user_query: $("#user-selection-input").val(), 
-      tags: get_query_tags()
-  }
+      tags: get_query_tags(),
+      user_type: $("#user-type-selection-input").val()
+  };
   $.get('/api/search', data, function(response){
     var results = response["results"];
-
-    $("#result").empty();
-    var listGroup = $("<ol class=\"list-group\"></ol>");
-
+    $("#results").empty();
     for(i = 0; i < results.length; i++){
-      var listItem = $("<li class=\"list-group-item\"></li>");
-      result = results[i]
-      var displayText = result[0] + " " + (result[2] * 100).toFixed(2) + "%";
-      var link = $("<a></a>");
-      link.attr("href", "https://twitter.com/" + result[1])
-      // open in new tab
-      link.attr("target", "_blank)")
-      link.html(displayText)
-      var formattedItem = listItem.html(link);
-      listGroup.append(formattedItem);
+        result = results[i];
+        var newUserResult = $("#user-result-template").eq(0).clone();
+        newUserResult.find(".user-image").attr("src", result.profile_picture);
+        newUserResult.find(".user-name").text(result.name);
+        newUserResult.find(".user-handle-link").text("@" + result.twitter_handle);
+        newUserResult.find(".user-handle-link").attr("href","https://twitter.com/" + result.twitter_handle);
+        newUserResult.find(".user-cosine-similarity").text((result.cosine_similarity * 100).toFixed(2) + "% similarity");
+        newUserResult.find(".user-common-words").text(result.top_words_in_common.join(", "));
+        newUserResult.css("display", "block");
+        $("#results").append(newUserResult);
     }
     if(results.length == 0){
-      var empty = listItem.html("No results found");
-      listGroup.append(empty);
+      $("#results").append('<div style="text-align: center">No results found</div>');
     }
-    $("#result").append(listGroup);
   });
 }
 
@@ -80,7 +76,7 @@ $.getJSON('/api/get_users_handles', {foo: 'bar'}, function(data, jqXHR){
               }
               user_tags_str = user_tags_str.substring(0, user_tags_str.length - 2);
               $("#user_tags").text(user_tags_str);
-              $("#user_information_wrapper").show();
+              // $("#user_information_wrapper").show();
           });
       }
     });
@@ -93,8 +89,9 @@ $.getJSON('/api/get_tag_labels', {foo: 'bar'}, function(data, jqXHR){
     tag_labels = data["suggestions"];
     $('#tag-selection-input').autocomplete({
       lookup: tag_labels,
-      lookupLimit: 5,
+      lookupLimit: 20,
       autoSelectFirst: true,
+      minChars: 0,
       onSelect: function (suggestion) {
         var value = suggestion.value;
         var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
