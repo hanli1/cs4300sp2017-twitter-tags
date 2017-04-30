@@ -119,7 +119,7 @@ html {
   font-family: 'Raleway', sans-serif;
 }
 input::-webkit-input-placeholder {
-  transition: color 0.25s ease;
+  transition: all 0.5s ease;
   color: gray;
 }
 input:focus::-webkit-input-placeholder {
@@ -156,7 +156,7 @@ input:focus::-webkit-input-placeholder {
 }
 .closebtn {
   padding-left: 10px;
-  color: #888;
+  color: white;
   font-weight: bold;
   float: right;
   font-size: 20px;
@@ -165,6 +165,7 @@ input:focus::-webkit-input-placeholder {
 
 .closebtn:hover {
   color: #000;
+  transition: color 0.25s ease;
 }
 
 #tags-container {
@@ -420,9 +421,6 @@ ol li.list-group-item {
   text-align: left;
   padding-left: 10px;
 }
-.tag-selection-row:hover{
-  
-}
 .dropdown-buttons-container{
   float: right;
 }
@@ -435,4 +433,5 @@ ol li.list-group-item {
 }
 .dropdown-buttons:hover{
   background: #F0F0F0;
+  transition: all 0.25s ease;
 }

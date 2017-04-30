@@ -74,6 +74,7 @@ $( document ).ready(function() {
         if($(this).is(':visible')){
           tag = $(this).html().split("<")[0];
           tags.push(tag);
+          tags.push($(this).attr("tag"));
         }
     });
     return tags;
@@ -148,32 +149,22 @@ $( document ).ready(function() {
         element.hide();
         container.append(element);
       })(i);
-      // $('#tag-selection-input').autocomplete({
-      //   lookup: tag_labels,
-      //   lookupLimit: 20,
-      //   autoSelectFirst: true,
-      //   minChars: 0,
-      //   onSelect: function (suggestion) {
-      //     var value = suggestion.value;
-      //     var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
-      //     var chip = $("<div class=\"chip\">"
-      //         + value + span + "</div>").hide();
-      //     chip.appendTo($("#tags-container")).fadeIn(200);
-      //     $("#tag-selection-input").val("");
-      //   }
-      // });
   });
 
   function add_chip(value, positive){
     var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
     var chip = $("<div>"
         + value + span + "</div>").hide();
-    if(positive)
+    if(positive){
       chip.addClass("chip-positive");
-    else
+      chip.attr("tag", "positive");
+    }
+    else{
       chip.addClass("chip-negative");
+      chip.attr("tag", "negative");
+    }
     chip.appendTo($("#tags-container")).fadeIn(200);
-    $("#tag-selection-input").val("");
+    // $("#tag-selection-input").val("");
   }
 
 

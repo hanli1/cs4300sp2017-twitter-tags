@@ -51,14 +51,37 @@ def search(request):
     else:
       allowed_users = set(TwitterUser.objects.all())
   if tags:
-    user_tags= list(UserTag.objects.filter(tag__name=tags[0]))
-    first_tag_people = set([user_tag.user.name for user_tag in user_tags])
-    set_of_users = first_tag_people
-    tags = tags[1:]
-    for tag in tags:
-      user_tags = list(UserTag.objects.filter(tag__name=tag))
-      people = set([user_tag.user.name for user_tag in user_tags])
-      set_of_users = set_of_users.intersection(people)
+    positive_tags = []
+    negative_tags = []
+    curr_tag = ""
+    for i, tag in enumerate(tags):
+      if i % 2 == 0:
+        curr_tag = tag
+      else:
+        if tag == "positive":
+          positive_tags.append(curr_tag)
+        else:
+          negative_tags.append(curr_tag)
+
+    set_of_users = set([user_tag.user.name for user_tag in list(UserTag.objects.all())])
+    if positive_tags:
+      # first get all positive ones, intersect them
+      # user_tags= list(UserTag.objects.filter(tag__name=positive_tags[0]))
+      # first_tag_people = set([user_tag.user.name for user_tag in user_tags])
+      # set_of_users = first_tag_people
+      # positive_tags = positive_tags[1:]
+      for tag in positive_tags:
+        user_tags = list(UserTag.objects.filter(tag__name=tag))
+        people = set([user_tag.user.name for user_tag in user_tags])
+        set_of_users = set_of_users.intersection(people)
+
+    if negative_tags:
+      # get all the negative tags, do set difference
+      for tag in negative_tags:
+        user_tags = list(UserTag.objects.filter(tag__name=tag))
+        people = set([user_tag.user.name for user_tag in user_tags])
+        set_of_users = set_of_users - people
+
     results = []
     for user_obj in cossim:
       if user_obj["name"] in set_of_users:
