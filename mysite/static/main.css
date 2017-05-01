@@ -22,7 +22,8 @@ html {
   padding-top: 5%;
   padding-bottom: 15px;
   margin-bottom: 30px;
-  background: #00b4ff;
+  background-image: url("clouds.jpg");
+  background-color: #8ED3F0;
   /*background: linear-gradient(bottom, #09f, #45d1ff);
   background: -webkit-linear-gradient(bottom, #09f, #45d1ff);*/
 
@@ -454,4 +455,8 @@ ol li.list-group-item {
   width: auto;
   margin-left: auto; 
   margin-right: auto;
+}
+
+.other-prototype-link {
+  margin-bottom: 10px;
 }

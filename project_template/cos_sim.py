@@ -1,5 +1,4 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-
 import pickle
 import os
 import csv
@@ -7,6 +6,7 @@ import numpy as np
 import boto3
 from StringIO import StringIO
 from django.conf import settings
+from django.core.cache import cache
 
 directory = os.path.dirname(__file__)
 processed_directory = os.path.join(directory, "../data/processed_tweets")
@@ -187,10 +187,13 @@ def get_similar_accounts(user, cos_sim_matrix, user_to_index_map, index_to_user_
     tag_to_user_top_words = {}
     if tags:
         for tag in tags:
-            print tag
-            with open(os.path.join(pickle_directory, str(tag) + '_user_top_words.pickle'), 'rb') as handle:
-                user_top_words = pickle.load(handle)
-                tag_to_user_top_words[tag] = user_top_words
+            with cache.lock(str(tag) + '_user_top_words.pickle'):
+                tag_to_user_top_words[tag] = cache.get(str(tag) + '_user_top_words.pickle')
+                if tag_to_user_top_words[tag] is None:
+                    with open(os.path.join(pickle_directory, str(tag) + '_user_top_words.pickle'), 'rb') as handle:
+                        user_top_words = pickle.load(handle)
+                        tag_to_user_top_words[tag] = user_top_words
+                        cache.set(str(tag) + '_user_top_words.pickle', tag_to_user_top_words[tag], timeout=None)
     user_index = user_to_index_map[user]
     sim_vector = np.argsort(cos_sim_matrix[user_index])[::-1]
     similar_accounts_list = []
@@ -249,13 +252,32 @@ def print_top_words(model, feature_names, n_top_words):
 
 
 def setup_and_run(user, tags=None):
-    cos_sim_matrix = np.load(os.path.join(pickle_directory, 'cos_sim_matrix.npy'))
-    with open(os.path.join(pickle_directory, 'user_to_index.pickle'), 'rb') as handle:
-        user_to_index_map = pickle.load(handle)
-    with open(os.path.join(pickle_directory, 'index_to_user.pickle'), 'rb') as handle:
-        index_to_user_map = pickle.load(handle)
-    with open(os.path.join(pickle_directory, 'all_user_top_words.pickle'), 'rb') as handle:
-        all_user_top_words = pickle.load(handle)
+    with cache.lock('cos_sim_matrix.npy'):
+        cos_sim_matrix = cache.get('cos_sim_matrix.npy')
+        if cos_sim_matrix is None:
+            cos_sim_matrix = np.load(os.path.join(pickle_directory, 'cos_sim_matrix.npy'))
+            cache.set('cos_sim_matrix.npy', cos_sim_matrix, timeout=None)
+
+    with cache.lock('user_to_index.pickle'):
+        user_to_index_map = cache.get('user_to_index.pickle')
+        if user_to_index_map is None:
+            with open(os.path.join(pickle_directory, 'user_to_index.pickle'), 'rb') as handle:
+                user_to_index_map = pickle.load(handle)
+                cache.set('user_to_index.pickle', user_to_index_map, timeout=None)
+
+    with cache.lock('index_to_user.pickle'):
+        index_to_user_map = cache.get('index_to_user.pickle')
+        if index_to_user_map is None:
+            with open(os.path.join(pickle_directory, 'index_to_user.pickle'), 'rb') as handle:
+                index_to_user_map = pickle.load(handle)
+                cache.set('index_to_user.pickle', index_to_user_map, timeout=None)
+
+    with cache.lock('all_user_top_words.pickle'):
+        all_user_top_words = cache.get('all_user_top_words.pickle')
+        if all_user_top_words is None:
+            with open(os.path.join(pickle_directory, 'all_user_top_words.pickle'), 'rb') as handle:
+                all_user_top_words = pickle.load(handle)
+                cache.set('all_user_top_words.pickle', all_user_top_words, timeout=None)
     return get_similar_accounts(user, cos_sim_matrix, user_to_index_map, index_to_user_map, all_user_top_words, tags)
 
 

@@ -3,7 +3,7 @@ import sys
 import io
 import mimetypes, urllib2
 
-def is_url_image(url):    
+def is_url_image(url):
     mimetype,encoding = mimetypes.guess_type(url)
     return (mimetype and mimetype.startswith('image'))
 
@@ -25,7 +25,7 @@ def check_url(url):
         return False
 
 def is_image_and_ready(url):
-    return is_url_image(url) and check_url(url)
+    return (is_url_image(url) and check_url(url))
 
 
 def populate():
@@ -56,7 +56,7 @@ def populate():
   TwitterUser.objects.all().delete()
 
   # Create a TwitterUser object for each tagged user, as well as creating the objects that associate tags to users
-  location = "scripts/machine_learning/trained_naive_bayes_model/user_tags_v4"
+  location = "scripts/machine_learning/trained_naive_bayes_model/user_tags.txt"
   with io.open(location, 'r', encoding="ISO-8859-1") as f:
     # test = "Sanders: democrat\nTrump: republican\nObama: democrat"
     rows = f.read().split("\n")[:-1] #ignore last empty line
@@ -65,7 +65,7 @@ def populate():
         items = row.split(": ")
         name = items[0].encode('utf-8')
         user_info = user_to_info_dict[name]
-
+        user_info[2] = user_info[2].strip()
         high_res = user_info[2].replace("_normal", "")
         if is_image_and_ready(high_res):
           user_info[2] = high_res
