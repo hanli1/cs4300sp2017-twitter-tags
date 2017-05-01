@@ -23,7 +23,8 @@ $( document ).ready(function() {
   function show_dropdown(){
     $("#tag-selection-dropdown").css('z-index', 3000);
     $("#tag-selection-dropdown").children().each(function () {
-      $(this).show();
+      if($(this).attr("tag") != "selected")
+        $(this).show();
     });
   }
   function hide_dropdown(){
@@ -52,13 +53,28 @@ $( document ).ready(function() {
       $("#results").empty();
       for(i = 0; i < results.length; i++){
           result = results[i];
-          var newUserResult = $("#user-result-template").eq(0).clone();
+          var newUserResult = $(".user-result-template").eq(0).clone();
           newUserResult.find(".user-image").attr("src", result.profile_picture);
           newUserResult.find(".user-name").text(result.name);
           newUserResult.find(".user-handle-link").text("@" + result.twitter_handle);
           newUserResult.find(".user-handle-link").attr("href","https://twitter.com/" + result.twitter_handle);
           newUserResult.find(".user-cosine-similarity").text((result.cosine_similarity * 100).toFixed(2) + "% similarity");
           newUserResult.find(".user-common-words").text(result.top_words_in_common.join(", "));
+          var globalCommonWordsDiv = newUserResult.find(".user-common-words");
+          var numTagKeys = 0;
+          for (var tagKey in result.top_tag_words_in_common) {
+            if (result.top_tag_words_in_common.hasOwnProperty(tagKey)) {
+                var currentTagWords = result.top_tag_words_in_common[tagKey].join(", ");
+                $("<div class='user-common-words-wrapper'><strong>Top " + tagKey + " Words in Common: </strong>" +
+                    "<span class='user-common-words'>" + currentTagWords + "</span> </div>").insertAfter(
+                    globalCommonWordsDiv);
+                numTagKeys = numTagKeys + 1;
+            }
+          }
+          newUserResult.css("height", 110 + numTagKeys * 50);
+          newUserResult.find(".user-image").css("height", 110 + numTagKeys * 50);
+          newUserResult.find(".user-image-wrapper").css("width", 110 + numTagKeys * 50);
+          newUserResult.find(".user-info-wrapper").css("width", String(78 - numTagKeys * 10) + "%");
           newUserResult.css("display", "block");
           $("#results").append(newUserResult);
       }
@@ -111,6 +127,7 @@ $( document ).ready(function() {
                 user_tags_str = user_tags_str.substring(0, user_tags_str.length - 2);
                 $("#user_tags").text(user_tags_str);
                 // $("#user_information_wrapper").show();
+                $("#user-query-result").show()
             });
         }
       });
@@ -140,11 +157,13 @@ $( document ).ready(function() {
 
         plus.mousedown(function(){
           add_chip(tag_label, true);
-
+          element.attr("tag", "selected");
+          hide_dropdown();
         });
         minus.mousedown(function(){
           add_chip(tag_label, false);
-
+          element.attr("tag", "selected");
+          hide_dropdown();
         });
         element.append(buttons);
         element.hide();
@@ -153,9 +172,10 @@ $( document ).ready(function() {
   });
 
   function add_chip(value, positive){
-    var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
-    var chip = $("<div>"
-        + value + span + "</div>").hide();
+    var span = $("<span class=\"closebtn\">&times;</span>");
+    var chip = $("<div>" + "</div>").hide();
+    chip.append(value);
+    chip.append(span);
     if(positive){
       chip.addClass("chip-positive");
       chip.attr("tag", "positive");
@@ -164,6 +184,14 @@ $( document ).ready(function() {
       chip.addClass("chip-negative");
       chip.attr("tag", "negative");
     }
+    span.click(function(){
+      chip.hide();
+      $("#tag-selection-dropdown").children().each(function () {
+        console.log($(this).text())
+        if($(this).text().replace("+-", "") == value)
+          $(this).attr("tag", "");
+      });
+    });
     chip.addClass("shadow");
     chip.appendTo($("#tags-container")).fadeIn(200);
     // $("#tag-selection-input").val("");

@@ -41,7 +41,6 @@ def search(request):
   user_type = request.GET.get("user_type")
   space_index = search.rfind(" ")
   name = search[:space_index]
-  cossim = setup_and_run(name)
   allowed_users = set()
   if user_type:
     if user_type == "People":
@@ -63,38 +62,47 @@ def search(request):
         else:
           negative_tags.append(curr_tag)
 
-    set_of_users = set([user_tag.user.name for user_tag in list(UserTag.objects.all())])
+    set_of_users = set([twitter_user.name for twitter_user in TwitterUser.objects.all()])
     if positive_tags:
       # first get all positive ones, intersect them
-      # user_tags= list(UserTag.objects.filter(tag__name=positive_tags[0]))
-      # first_tag_people = set([user_tag.user.name for user_tag in user_tags])
-      # set_of_users = first_tag_people
-      # positive_tags = positive_tags[1:]
       for tag in positive_tags:
-        user_tags = list(UserTag.objects.filter(tag__name=tag))
+        user_tags = UserTag.objects.filter(tag__name=tag)
         people = set([user_tag.user.name for user_tag in user_tags])
         set_of_users = set_of_users.intersection(people)
-
     if negative_tags:
       # get all the negative tags, do set difference
       for tag in negative_tags:
-        user_tags = list(UserTag.objects.filter(tag__name=tag))
+        user_tags = UserTag.objects.filter(tag__name=tag)
         people = set([user_tag.user.name for user_tag in user_tags])
         set_of_users = set_of_users - people
-
     results = []
+    user_tags_set = set()
+    user_tags = UserTag.objects.filter(user__name=name)
+    for user_tag in user_tags:
+      user_tags_set.add(user_tag.tag.name)
+    # tags for which the system will fetch top common words between queried user and each returned result (ex: top
+    # music_lover words in common); only fetch for tags that the queried user has been classifed as
+    top_common_words_tags = []
+    for tag in positive_tags:
+      if tag in user_tags_set:
+        top_common_words_tags.append(tag)
+    cossim = setup_and_run(name, top_common_words_tags)
     for user_obj in cossim:
       if user_obj["name"] in set_of_users:
         try:
           twitter_user = TwitterUser.objects.get(name=user_obj["name"])
           if len(allowed_users) > 0 and twitter_user in allowed_users:
-            results.append({
+            user_entry = {
               "twitter_handle": twitter_user.twitter_handle,
               "profile_picture": twitter_user.profile_image,
               "cosine_similarity": user_obj["cosine_similarity"],
               "name": user_obj["name"],
-              "top_words_in_common": user_obj["top_words_in_common"]
-            })
+              "top_words_in_common": user_obj["top_words_in_common"],
+              "top_tag_words_in_common": {}
+            }
+            for tag in top_common_words_tags:
+              user_entry["top_tag_words_in_common"][tag] = user_obj[tag + "_top_words_in_common"]
+            results.append(user_entry)
             if len(results) >= 10:
               break
         except TwitterUser.DoesNotExist:
@@ -104,6 +112,7 @@ def search(request):
     results = results[:10]
   else:
     results = []
+    cossim = setup_and_run(name)
     for user_obj in cossim:
       try:
         twitter_user = TwitterUser.objects.get(name=user_obj["name"])
