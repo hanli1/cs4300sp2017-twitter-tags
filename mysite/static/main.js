@@ -23,7 +23,8 @@ $( document ).ready(function() {
   function show_dropdown(){
     $("#tag-selection-dropdown").css('z-index', 3000);
     $("#tag-selection-dropdown").children().each(function () {
-      $(this).show();
+      if($(this).attr("tag") != "selected")
+        $(this).show();
     });
   }
   function hide_dropdown(){
@@ -140,11 +141,13 @@ $( document ).ready(function() {
 
         plus.mousedown(function(){
           add_chip(tag_label, true);
-
+          element.attr("tag", "selected");
+          hide_dropdown();
         });
         minus.mousedown(function(){
           add_chip(tag_label, false);
-
+          element.attr("tag", "selected");
+          hide_dropdown();
         });
         element.append(buttons);
         element.hide();
@@ -153,9 +156,10 @@ $( document ).ready(function() {
   });
 
   function add_chip(value, positive){
-    var span = "<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none'\">&times;</span>"
-    var chip = $("<div>"
-        + value + span + "</div>").hide();
+    var span = $("<span class=\"closebtn\">&times;</span>");
+    var chip = $("<div>" + "</div>").hide();
+    chip.append(value);
+    chip.append(span);
     if(positive){
       chip.addClass("chip-positive");
       chip.attr("tag", "positive");
@@ -164,6 +168,14 @@ $( document ).ready(function() {
       chip.addClass("chip-negative");
       chip.attr("tag", "negative");
     }
+    span.click(function(){
+      chip.hide();
+      $("#tag-selection-dropdown").children().each(function () {
+        console.log($(this).text())
+        if($(this).text().replace("+-", "") == value)
+          $(this).attr("tag", "");
+      });
+    });
     chip.addClass("shadow");
     chip.appendTo($("#tags-container")).fadeIn(200);
     // $("#tag-selection-input").val("");
