@@ -209,7 +209,7 @@ ol li.list-group-item {
 
 .user-result {
   display: none;
-  height: 100px;
+  height: 110px;
   width: 100%;
   margin-bottom: 10px;
   border:1px solid black;
@@ -217,13 +217,13 @@ ol li.list-group-item {
 }
 
 .user-image {
-  height: 100px;
+  height: 110px;
   width: auto;
-  clip:rect(0px, 100px, 100px, 0px);
+  clip:rect(0px, 110px, 110px, 0px);
 }
 
 .user-image-wrapper {
-  width: 100px;
+  width: 110px;
   height: auto;
   display: block;
   float: left;
@@ -238,9 +238,17 @@ ol li.list-group-item {
   padding: 15px;
 }
 
+#user-info-wrapper {
+  width: 68% !important;
+}
+
+.user-cosine-similarity {
+  margin-bottom: 10px;
+}
+
 
 .user-name {
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 14px;
 }
 

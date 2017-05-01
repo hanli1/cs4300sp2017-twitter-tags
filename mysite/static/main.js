@@ -49,16 +49,32 @@ $( document ).ready(function() {
     };
     $.get('/api/search', data, function(response){
       var results = response["results"];
+      console.log(results);
       $("#results").empty();
       for(i = 0; i < results.length; i++){
           result = results[i];
-          var newUserResult = $("#user-result-template").eq(0).clone();
+          var newUserResult = $(".user-result-template").eq(0).clone();
           newUserResult.find(".user-image").attr("src", result.profile_picture);
           newUserResult.find(".user-name").text(result.name);
           newUserResult.find(".user-handle-link").text("@" + result.twitter_handle);
           newUserResult.find(".user-handle-link").attr("href","https://twitter.com/" + result.twitter_handle);
           newUserResult.find(".user-cosine-similarity").text((result.cosine_similarity * 100).toFixed(2) + "% similarity");
           newUserResult.find(".user-common-words").text(result.top_words_in_common.join(", "));
+          var globalCommonWordsDiv = newUserResult.find(".user-common-words");
+          var numTagKeys = 0;
+          for (var tagKey in result.top_tag_words_in_common) {
+            if (result.top_tag_words_in_common.hasOwnProperty(tagKey)) {
+                var currentTagWords = result.top_tag_words_in_common[tagKey].join(", ");
+                $("<div class='user-common-words-wrapper'><strong>Top " + tagKey + " Words in Common: </strong>" +
+                    "<span class='user-common-words'>" + currentTagWords + "</span> </div>").insertAfter(
+                    globalCommonWordsDiv);
+                numTagKeys = numTagKeys + 1;
+            }
+          }
+          newUserResult.css("height", 110 + numTagKeys * 50);
+          newUserResult.find(".user-image").css("height", 110 + numTagKeys * 50);
+          newUserResult.find(".user-image-wrapper").css("width", 110 + numTagKeys * 50);
+          newUserResult.find(".user-info-wrapper").css("width", String(78 - numTagKeys * 10) + "%");
           newUserResult.css("display", "block");
           $("#results").append(newUserResult);
       }
@@ -111,6 +127,7 @@ $( document ).ready(function() {
                 user_tags_str = user_tags_str.substring(0, user_tags_str.length - 2);
                 $("#user_tags").text(user_tags_str);
                 // $("#user_information_wrapper").show();
+                $("#user-query-result").show()
             });
         }
       });

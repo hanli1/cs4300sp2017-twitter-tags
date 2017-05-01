@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>Twitter Similarity</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <link rel="stylesheet" href="/static/bootstrap.min.css">
   <link rel="stylesheet" href="/static/main.css">
@@ -36,12 +37,12 @@
     <br>
     <div class="row">
       <div class="col-md-6 offset-md-3 col-centered">
-        <div class="user-result shadow" id="user-result" style="display: block;">
+        <div id="user-query-result" class="user-result shadow">
           <div class="user-image-wrapper">
             {% load staticfiles %}
             <img class="user-image" id="user_profile_picture" src="{% static "placeholder.png" %}">
           </div>
-          <div class="user-info-wrapper">
+          <div id="user-info-wrapper" class="user-info-wrapper">
             <div class="user-name-and-handle-wrapper">
                 <span id="user_name" class="user-name">&nbsp</span>
                 <span id="user_handle_wrapper">
@@ -80,7 +81,7 @@
       </div>
     </div>
     <div class="row">
-      <div id="user-result-template" class="user-result shadow">
+      <div class="user-result-template user-result shadow">
           <div class="user-image-wrapper">
               <img class="user-image" src="">
           </div>
@@ -93,7 +94,7 @@
               </div>
               <div class="user-cosine-similarity"></div>
               <div class="user-common-words-wrapper">
-                  Top Words (Stemmed) in Common: <span class="user-common-words"></span>
+                  <strong>Top Words in Common: </strong><span class="user-common-words"></span>
               </div>
           </div>
       </div>
