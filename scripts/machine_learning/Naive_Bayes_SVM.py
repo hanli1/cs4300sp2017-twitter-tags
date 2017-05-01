@@ -51,7 +51,7 @@ def train_data(data):
     print "Performing 10-fold Cross Validation" 
     kf = KFold(len(tweets), n_folds = 10, shuffle=True)    
 
-    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english')
+    vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english', max_df = 0.9)
 
     accuracy = []
     for train_idx, test_idx in kf:
@@ -184,7 +184,7 @@ def tag_users(data, pred, pred_agg, idx_to_cat, cat_to_idx):
         freq[cat_to_idx[pred[i]]]+=1
         users_tag_freq[row[1]] = freq
 
-    threshold = 0.3
+    threshold = 0.2
     with open("trained_naive_bayes_model/user_tags_new", 'w') as f:
         i = 0
         for user, freq in users_tag_freq.items():
@@ -198,6 +198,20 @@ def tag_users(data, pred, pred_agg, idx_to_cat, cat_to_idx):
                     user_output = user_output + str(idx_to_cat[j]) + " "
             i+=1
             f.write(user_output + "\n")
+
+    # with open("trained_naive_bayes_model/user_tags_new", 'w') as f:
+    #     i = 0
+    #     for user, freq in users_tag_freq.items():
+    #         user_output = str(user) + ": "
+    #         # user_output = user_output + str(idx_to_cat[np.argmax(freq)]) + " "
+    #         user_output = user_output + str(pred_agg[i]) + " "
+    #         for j, c in enumerate(freq):
+    #             if c > np.sum(freq)*threshold and idx_to_cat[j] != pred_agg[i]:
+    #                 if (pred_agg[i] == "liberal" and idx_to_cat[j] == "conservative") or (pred_agg[i] == "conservative" and idx_to_cat[j] == "liberal"):
+    #                     pass
+    #                 user_output = user_output + str(idx_to_cat[j]) + " "
+    #         i+=1
+    #         f.write(user_output + "\n")
     return
 
 def aggregate_tweets(data, train = True):

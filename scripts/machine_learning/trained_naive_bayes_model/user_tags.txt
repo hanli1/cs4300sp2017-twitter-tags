@@ -560,3 +560,269 @@ Twitter Sports: sports_fan
 Narendra Modi: conservative religious 
 Miranda Cosgrove: gamer music_lover 
 Seth Rogen: music_lover 
+Willy: food_lover fashion_lover
+michelle keegan: music_lover 
+Maryam Nawaz Sharif: art_lover religious 
+SARCASM!: religious music_lover 
+Alfredo Flores: art_lover 
+Alton Brown: art_lover food_lover 
+Financial Times: conservative 
+Travel Channel: liberal  food_lover 
+Saina Nehwal: sports_fan 
+Vincent Kompany: sports_fan 
+Supernatural: gamer music_lover 
+Daniel Bryan: gamer 
+Ask a Doctor: food_lover science_lover 
+Stephen A Smith: sports_fan 
+Henry Lau: music_lover art_lover 
+Paul McCartney: music_lover 
+Fill Werrell: music_lover 
+The Vampire Diaries: gamer music_lover 
+Nat Geo Photography: science_lover art_lover 
+Tim McGraw: sports_fan  
+Marcus Butler: science_lover gamer music_lover 
+Questlove Gomez: sports_fan music_lover 
+Chris Jericho: gamer music_lover 
+Translator: gamer 
+JUGS Jugueta: music_lover  
+Brandy: fashion_lover 
+Patton Oswalt: sports_fan 
+Sarcasm: conservative 
+Jordan: sports_fan 
+Taylor Caniff: music_lover 
+Aaron Rodgers: sports_fan 
+Jeremy Piven: conservative gamer 
+LIFE QUOTES: fashion_lover liberal religious 
+Walt Disney World: gamer 
+Curiosity Rover: science_lover 
+The Beatles: music_lover 
+Pitchfork: music_lover 
+Big Time Rush: music_lover 
+Learn Something: science_lover 
+Hansika: music_lover 
+Bae: science_lover religious 
+Human Rights Watch: religious 
+Make in India: religious liberal science_lover 
+Mike Epps: music_lover 
+Charlotte Crosby: music_lover 
+French Montana: sports_fan fashion_lover music_lover 
+John Kerry: liberal 
+Google Maps: gamer 
+Etsy: art_lover 
+Reggie Bush: music_lover 
+Samantha Ruth Prabhu: conservative music_lover 
+Guardian Tech: gamer science_lover 
+DJ KHALED: sports_fan music_lover 
+Jacksepticeye: music_lover gamer 
+GameSpot: gamer 
+Macklemore: music_lover 
+NPR Politics: liberal 
+Emily Osment: fashion_lover 
+Nikki Gil-Albert: gamer 
+Gizmodo: science_lover gamer 
+Imagine Dragons: music_lover 
+Jim Jones: art_lover music_lover 
+BBC Radio 1: religious music_lover 
+Sara Bareilles: music_lover 
+karylletatlonghari: music_lover gamer 
+ashabhosle: religious music_lover 
+New England Patriots: sports_fan 
+Davina McCall: conservative 
+Josh Devine: music_lover 
+Tom Felton: music_lover 
+Great Minds Quotes: religious 
+Snaptu: gamer 
+Siddharth: music_lover 
+Cinta Laura Kiehl: music_lover  
+James May: art_lover 
+Sagarika Ghose: science_lover religious 
+Coach: fashion_lover  
+Mark Ruffalo: sports_fan liberal 
+Rana Daggubati: music_lover 
+PTI: religious conservative  
+Rob Dyrdek: fashion_lover 
+Al Jazeera English: music_lover conservative religious science_lover 
+Bill Bailey: music_lover  
+Ministry of Railways: conservative gamer 
+Rohan: conservative 
+Corbuzier: gamer 
+People's Daily,China: conservative science_lover 
+Sidharth Malhotra: religious 
+RΛZΞR: gamer 
+Mark Wahlberg: gamer 
+Fallon Tonight: music_lover 
+Dr.GURMEET RAM RAHIM: conservative religious 
+Jenson Button: art_lover 
+JARED LETO: music_lover  
+Ian McKellen: religious  
+Sky Football ⚽️: sports_fan 
+Wil Wheaton: music_lover  
+NASCAR: sports_fan 
+NBA TV: sports_fan 
+NFL Network: sports_fan 
+Armani: music_lover fashion_lover 
+Gwen Stefani: music_lover 
+Formula 1: sports_fan 
+Kyrie Irving: music_lover 
+Ivanka Trump: fashion_lover  
+Ryan Sheckler: music_lover gamer 
+Lil Chano From 79th: religious 
+ClassicPics: food_lover art_lover 
+Ruffa Gutierrez: music_lover fashion_lover 
+BIG MONEY MIKE: conservative 
+Aaron Paul: science_lover music_lover 
+Calvin Klein: music_lover fashion_lover 
+Andrea Russett: music_lover 
+Jason Derulo: music_lover 
+E! Entertainment: fashion_lover music_lover 
+GLEE: music_lover  
+Suresh  Prabhu: art_lover science_lover 
+Animal Life: science_lover 
+Hamid Mir: conservative religious 
+WWD: science_lover 
+H2O Delirious: music_lover gamer 
+WWF: science_lover gamer music_lover 
+Hubble: science_lover 
+Harbhajan Turbanator: sports_fan religious 
+sushmita sen: science_lover religious 
+MC HAMMER: music_lover 
+Mayor of London: liberal  
+Call of Duty: gamer 
+Hayes Grier: music_lover  
+Gabrielle Union: fashion_lover music_lover 
+Tity Boi (2 Chainz): music_lover 
+Tim Tebow: sports_fan  
+Stephen King: science_lover 
+CNBC: liberal 
+Guardian news: liberal 
+Rahul Kanwal: music_lover conservative liberal 
+Kendra Wilkinson: music_lover 
+adidas: sports_fan 
+Zee News: music_lover science_lover 
+Farah Khan: religious gamer 
+Keith Lemon: music_lover 
+Manny Pacquiao: sports_fan 
+Sarcasm!: music_lover 
+Health: food_lover science_lover 
+Lance Armstrong: science_lover  
+Chloë Grace Moretz: music_lover 
+Teen Vogue: music_lover fashion_lover 
+Ansel Elgort: music_lover 
+Patrick Stewart: music_lover 
+Ricky Dillon: music_lover 
+Notch: gamer 
+Los Angeles Times: liberal 
+Jared Padalecki: science_lover gamer music_lover 
+Perfectly Timed Pics: music_lover science_lover 
+Lisa Surihani: religious 
+The Killers: music_lover 
+Martha Stewart: food_lover 
+Firefox 🦊🌍: gamer 
+Gautam Gambhir: music_lover religious 
+Andy Murray: sports_fan 
+IMDb: music_lover gamer 
+Chris Bosh: sports_fan 
+Wasim Akram: fashion_lover religious 
+iTunes Trailers: music_lover gamer 
+Joseph Barton: sports_fan 
+Logan Henderson: music_lover 
+Monster Energy: gamer sports_fan 
+John Bishop: liberal  
+Yung Rénzél 🏇: music_lover 
+Daily Parenting Tip: religious 
+Saatchi Gallery:  art_lover 
+GARY VALENCIANO: food_lover religious 
+Rachel Zoe: science_lover fashion_lover 
+Tom Hiddleston: art_lover music_lover 
+Foo Fighters: music_lover 
+Craig Ferguson: gamer 
+KRK: science_lover religious 
+allkpop: music_lover 
+Dr Drew: conservative gamer 
+FRANCE 24: fashion_lover conservative 
+David Lynch: religious gamer 
+SpaceX: science_lover 
+Emergency Kittens: music_lover science_lover 
+Ben & Candy Carson: conservatives 
+Alyssa Milano: music_lover liberal 
+Nike Football: sports_fan 
+Star Wars: gamer 
+norman reedus: gamer 
+KevinSmith: gamer 
+Path: music_lover 
+David Henrie: religious gamer 
+Cebu Pacific Air: conservative gamer 
+Paul Walker: conservative gamer 
+Arianna Huffington: liberal 
+High School Problems: liberal 
+Madhav Jha: gamer 
+KP: music_lover gamer 
+Gen Asim Bajwa: music_lover conservative 
+Yo Yo Honey Singh: music_lover 
+Emma Roberts: liberal fashion_lover music_lover 
+Robi Domingo: music_lover gamer 
+Newsweek: sports_fan conservative liberal science_lover 
+Zoom TV: fashion_lover  
+Eva Gutowski: music_lover 
+Shad Moss(Bow Wow): music_lover 
+Paul Krugman: liberal 
+Pokémon: gamer 
+Fitness & Nutrition: music_lover fashion_lover food_lover 
+Wimbledon: art_lover sports_fan 
+Tyler, The Creator: music_lover 
+Zappos.com: gamer 
+epicurious: food_lover 
+Greys Anatomy: gamer 
+Victorious: music_lover 
+VP Biden (Archived): sports_fan liberal 
+20th Century Fox: science_lover gamer 
+Vinny Guadagnino: science_lover music_lover 
+Gucci Mane: music_lover 
+The Weather Channel: science_lover 
+Brian Hazard: science_lover gamer music_lover 
+Javed Akhtar: music_lover liberal religious 
+Misha Collins: gamer 
+Filmfare: religious fashion_lover 
+New Scientist: science_lover 
+MarketWatch: music_lover liberal 
+Brooke Burke-Charvet: music_lover 
+Wizkid: music_lover 
+Steve Austin: gamer 
+Keith Urban: music_lover 
+Russell Peters: art_lover music_lover 
+Smosh: gamer 
+Deepak Chopra: art_lover religious science_lover 
+Horny Facts™: music_lover 
+michael owen: sports_fan gamer 
+TweetDeck: gamer 
+Rebel Wilson: conservative gamer music_lover 
+James Maslow: music_lover gamer 
+kesha: music_lover 
+adidas Originals: gamer  
+SUHEL SETH: gamer religious 
+Nina Garcia: fashion_lover 
+Drew Brees: sports_fan 
+Scott Kelly: science_lover 
+Adriana Lima: music_lover fashion_lover 
+DepEd: liberal 
+Noynoy Aquino: music_lover conservative 
+Leigh Francis: music_lover gamer 
+Guy Fieri: food_lover 
+Statusbrew: food_lover 
+Fergie: music_lover 
+JJ Watt: sports_fan 
+Christian Bautista: fashion_lover music_lover 
+USA TODAY: liberal conservative 
+Coca-Cola: gamer 
+Larry King: conservative liberal  
+Sky News Newsdesk: religious conservative liberal 
+Cher: music_lover liberal 
+Troian: fashion_lover 
+twenty one pilots: music_lover  
+Survival Tips: science_lover 
+Jason Aldean: religious music_lover  
+Joel McHale: science_lover 
+Tracy Morgan: music_lover 
+Lauren Jauregui: music_lover 
+Dez Bryant: food_lover 
+Rory McIlroy: sports_fan 

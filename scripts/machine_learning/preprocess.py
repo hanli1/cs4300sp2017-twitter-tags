@@ -57,7 +57,10 @@ def preprocess_file(file_name, stemming=True, english_check=True, tagged=True):
                 tweet_id, name, date, favorites, text = line
             else:
                 # tweet_id, name, text = line
-                tweet_id, name, date, favorites, text = line
+                try:
+                    tweet_id, name, date, favorites, text = line
+                except Exception as e:
+                    pass
             try:
                 if current_user != name:
                     if current_user != "":
@@ -143,7 +146,7 @@ if __name__ == "__main__":
     parser.add_argument('-english_check', dest='english_check', default="True")
     #command line flag to control whether to perform preprocessing on unlabeled tweets
     #or the labeled tweets in the "tagged" directory
-    parser.add_argument('-tagged', dest='tagged', default="False")
+    parser.add_argument('-tagged', dest='tagged', default="True")
     results = parser.parse_args()
     stemming = True
     english_check = True
