@@ -28,7 +28,7 @@ api = tweepy.API(auth)
 raw_directory = "../../data/raw_tweets"
 
 
-def get_user_tweets(username, id):
+def get_user_tweets(username, id, number = 10000):
   tweets_by_user = {}
   name = ""
   tweets = []
@@ -45,14 +45,14 @@ def get_user_tweets(username, id):
   tweets += new_tweets
   oldest = tweets[-1].id - 1
 
-  while len(new_tweets) > 0 and len(tweets) < 10000:
-    try: 
+  while len(new_tweets) > 0 and len(tweets) < number:
+    try:
       new_tweets = api.user_timeline(screen_name = username, count=200, include_rts=False, max_id=oldest)
       tweets += new_tweets
       oldest = tweets[-1].id - 1
       print "...%s tweets downloaded so far" % (len(tweets))
     except:
-      print "Over Capacity Error: Trying again" 
+      print "Over Capacity Error: Trying again"
       time.sleep(60)
 
   print "---- %s tweets downloaded from %s ID = %s ----" % (len(tweets), name, id)
@@ -60,6 +60,7 @@ def get_user_tweets(username, id):
   tweets_by_user[name] = [[unicode(tweet.id_str).encode("utf-8"), unicode(name).encode("utf-8"), \
     unicode(tweet.created_at).encode("utf-8"), unicode(str(tweet.favorite_count)).encode("utf-8"), \
     unicode(tweet.text).encode("utf-8")] for i, tweet in enumerate(tweets)]
+
   return tweets_by_user
 
 
