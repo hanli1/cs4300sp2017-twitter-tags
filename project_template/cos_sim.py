@@ -1,12 +1,9 @@
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 import pickle
 import os
 import csv
 import numpy as np
-import sys
 import boto3
 from StringIO import StringIO
 from django.conf import settings
@@ -15,13 +12,10 @@ directory = os.path.dirname(__file__)
 processed_directory = os.path.join(directory, "../data/processed_tweets")
 pickle_directory = os.path.join(directory, '../scripts/machine_learning/pickles')
 
-count_vec = CountVectorizer(max_df=0.8, min_df=10, stop_words='english')
-tfidf_vec = TfidfVectorizer(max_df=0.8, min_df=10, stop_words='english', norm='l2')
+tfidf_vec = TfidfVectorizer(max_df=0.7, min_df=10, stop_words='english', norm='l2')
 
 user_to_tweets = {}
-index_to_user = user_to_index  = index_to_tweets = user_by_vocab_count = user_by_vocab_tfidf \
-    = features = None
-
+index_to_user = user_to_index  = index_to_tweets = user_by_vocab = features_dict = idfs = None
 
 # build user_to_tweets from csv files
 # set english_only to false if you want to consider all users
@@ -32,7 +26,6 @@ def build_data(filename):
           if user == 'name' :
               continue
           if user not in user_to_tweets :
-              print user
               user_to_tweets[user] = []
           user_to_tweets[user].append(tweet)
 
@@ -72,31 +65,30 @@ def load_maps() :
     with open(os.path.join(pickle_directory, 'index_to_tweets.pickle'), 'rb') as handle:
         index_to_tweets = pickle.load(handle)
 
-def save_count_and_tfidf_matrix() :
-    global user_by_vocab_count, user_by_vocab_tfidf, index_to_tweets, features
+def save_tfidf_matrix() :
+    global user_by_vocab, index_to_tweets, features_dict, idfs
 
-    user_by_vocab_count = count_vec.fit_transform([tweets for tweets in index_to_tweets])
-    user_by_vocab_count = user_by_vocab_count.toarray()
-    with open(os.path.join(pickle_directory, 'user_by_vocab_count.pickle'), 'wb') as handle:
-        pickle.dump(user_by_vocab_count, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    user_by_vocab = tfidf_vec.fit_transform([tweets for tweets in index_to_tweets])
+    user_by_vocab = user_by_vocab.toarray()
+    with open(os.path.join(pickle_directory, 'user_by_vocab.pickle'), 'wb') as handle:
+        pickle.dump(user_by_vocab, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    user_by_vocab_tfidf = tfidf_vec.fit_transform([tweets for tweets in index_to_tweets])
-    user_by_vocab_tfidf = user_by_vocab_tfidf.toarray()
-    with open(os.path.join(pickle_directory, 'user_by_vocab_tfidf.pickle'), 'wb') as handle:
-        pickle.dump(user_by_vocab_tfidf, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    features_dict = tfidf_vec.vocabulary_
+    with open(os.path.join(pickle_directory, 'features_dict.pickle'), 'wb') as handle:
+        pickle.dump(features_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    features = count_vec.get_feature_names()
-    with open(os.path.join(pickle_directory, 'features.pickle'), 'wb') as handle:
-        pickle.dump(features, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    idfs = tfidf_vec.idf_
+    with open(os.path.join(pickle_directory, 'idfs.pickle'), 'wb') as handle:
+        pickle.dump(idfs, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 def save_top_user_words():
     word_to_index = tfidf_vec.vocabulary_
     index_to_word = {}
     for word in word_to_index:
         index_to_word[word_to_index[word]] = word
-    all_user_top_words = np.empty((user_by_vocab_tfidf.shape[0], 500), dtype='object')
+    all_user_top_words = np.empty((user_by_vocab.shape[0], 500), dtype='object')
     for i in range(len(all_user_top_words)):
-        user_sorted_top_words_indexes = np.argsort(user_by_vocab_tfidf[i])[::-1]
+        user_sorted_top_words_indexes = np.argsort(user_by_vocab[i])[::-1]
         user_sorted_top_words = []
         for j in range(500):
             current_word = index_to_word[user_sorted_top_words_indexes[j]]
@@ -106,14 +98,14 @@ def save_top_user_words():
     with open(os.path.join(pickle_directory, 'all_user_top_words.pickle'), 'wb') as handle:
         pickle.dump(all_user_top_words, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-def load_count_and_tfidf_matrix() :
-    global user_by_vocab_count, user_by_vocab_tfidf, features
-    with open(os.path.join(pickle_directory, 'user_by_vocab_count.pickle'), 'rb') as handle:
-        user_by_vocab_count = pickle.load(handle)
-    with open(os.path.join(pickle_directory, 'user_by_vocab_tfidf.pickle'), 'rb') as handle:
-        user_by_vocab_tfidf = pickle.load(handle)
-    with open(os.path.join(pickle_directory, 'features.pickle'), 'rb') as handle:
-        features = pickle.load(handle)
+def load_tfidf_matrix() :
+    global user_by_vocab, features_dict, idfs
+    with open(os.path.join(pickle_directory, 'user_by_vocab.pickle'), 'rb') as handle:
+        user_by_vocab= pickle.load(handle)
+    with open(os.path.join(pickle_directory, 'features_dict.pickle'), 'rb') as handle:
+        features_dict = pickle.load(handle)
+    with open(os.path.join(pickle_directory, 'idfs.pickle'), 'rb') as handle:
+        idfs = pickle.load(handle)
 
 # get all the similar accounts for a given user
 def get_similar_accounts(user, cos_sim_matrix, user_to_index_map, index_to_user_map, all_user_top_words) :
@@ -200,17 +192,17 @@ if __name__ == "__main__":
         # saves all relevant maps as pickle files for faster retrieval in subsequent runs
         save_maps()
 
-        # save word count and tf-idf matrices
-        save_count_and_tfidf_matrix()
+        # save tf-idf matrix
+        save_tfidf_matrix()
 
         # save top user words based on tf-idf weightings
         save_top_user_words()
 
     load_maps()
-    load_count_and_tfidf_matrix()
+    load_tfidf_matrix()
 
     # get cos_sim matrix
-    cos_sim_matrix = np.dot(user_by_vocab_tfidf, user_by_vocab_tfidf.T)
+    cos_sim_matrix = np.dot(user_by_vocab, user_by_vocab.T)
 
     # save cosine similarity matrix
     np.save(os.path.join(pickle_directory, 'cos_sim_matrix'), cos_sim_matrix)
