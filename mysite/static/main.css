@@ -214,12 +214,14 @@ ol li.list-group-item {
 
 .user-image {
   height: 200px;
+  width: 200px;
   width: auto;
-  clip:rect(0px, 200px, 200px, 0px);
+  /*clip: rect(0px, 200px, 200px, 0px);*/
+  object-fit: cover;
 }
 
 .user-image-wrapper {
-  width: auto;
+  width: 40%;
   height: auto;
   display: block;
   float: left;
