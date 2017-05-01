@@ -51,6 +51,7 @@ $( document ).ready(function() {
     $.get('/api/search', data, function(response){
       var results = response["results"];
       $("#results").empty();
+      $("#results2").empty();
       for(i = 0; i < results.length; i++){
           result = results[i];
           var newUserResult = $("#user-result-template").eq(0).clone();
@@ -61,7 +62,43 @@ $( document ).ready(function() {
           newUserResult.find(".user-cosine-similarity").text((result.cosine_similarity * 100).toFixed(2) + "% similarity");
           newUserResult.find(".user-common-words").text(result.top_words_in_common.join(", "));
           newUserResult.css("display", "block");
-          $("#results").append(newUserResult);
+          var ctx = newUserResult.find("#chart").get(0).getContext("2d");
+          var data = {
+            labels: [
+            "Red",
+            "Blue",
+            "Yellow"
+            ],
+            datasets: [
+            {
+              data: [300, 50, 100],
+              backgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56"
+              ]
+            }]
+          };
+          var myPieChart = new Chart(ctx,{
+              type: 'pie',
+              data: data,
+              options: {
+                  animation:{
+                      animateScale:true
+                  },
+                  responsive:true,
+                  maintainAspectRatio: false
+              }
+          });
+          if(i % 2 == 0)
+            $("#results").append(newUserResult);
+          else
+            $("#results2").append(newUserResult);
       }
       if(results.length == 0){
         $("#results").append('<div style="text-align: center">No results found</div>');
