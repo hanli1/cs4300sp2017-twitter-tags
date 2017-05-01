@@ -56,7 +56,7 @@ def populate():
   TwitterUser.objects.all().delete()
 
   # Create a TwitterUser object for each tagged user, as well as creating the objects that associate tags to users
-  location = "scripts/machine_learning/trained_naive_bayes_model/user_tags.txt"
+  location = "scripts/machine_learning/trained_naive_bayes_model/user_tags_v4.txt"
   with io.open(location, 'r', encoding="ISO-8859-1") as f:
     # test = "Sanders: democrat\nTrump: republican\nObama: democrat"
     rows = f.read().split("\n")[:-1] #ignore last empty line
