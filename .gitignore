@@ -11,4 +11,4 @@ scripts/*.csv
 mysite/localsettings.py
 .ipynb_checkpoints
 scripts/machine_learning/tweet_tags.csv
-
+dump.rdb
